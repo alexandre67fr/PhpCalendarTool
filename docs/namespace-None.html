@@ -42,7 +42,9 @@
 
 			<h3>Functions</h3>
 			<ul>
-				<li class="active"><a href="function-GetEventList.html">GetEventList</a></li>
+				<li><a href="function-CreateCalendarEvent.html">CreateCalendarEvent</a></li>
+				<li><a href="function-GetEventList.html">GetEventList</a></li>
+				<li class="active"><a href="function-SetCalendarEvent.html">SetCalendarEvent</a></li>
 			</ul>
 		</div>
 	</div>
@@ -66,7 +68,7 @@
 			<li class="active">
 <span>Namespace</span>			</li>
 			<li>
-				<a href="function-GetEventList.html" title="Summary of GetEventList"><span>Function</span></a>
+				<a href="function-SetCalendarEvent.html" title="Summary of SetCalendarEvent"><span>Function</span></a>
 			</li>
 		</ul>
 		<ul>
@@ -88,8 +90,18 @@
 <table class="summary" id="functions">
 <caption>Functions summary</caption>
 <tr>
+	<td class="name"><a href="function-CreateCalendarEvent.html">CreateCalendarEvent</a></td>
+	<td>Creates a calendar event.</td>
+</tr>
+<tr>
 	<td class="name"><a href="function-GetEventList.html">GetEventList</a></td>
-	<td>Gets the list of all events in all calendars, except deleted and events without both start and end datetime</td>
+	<td><p>Gets the list of all events in all calendars, except deleted and events without both start and end datetime
+It is described <a href="https://developers.google.com/google-apps/calendar/v3/reference/events/list#timeMax">here</a> how timestamps act.
+Bounds are exclusive for an event's start/end time to filter by. They are optional. The default is not to filter by start/end time.</p></td>
+</tr>
+<tr>
+	<td class="name"><a href="function-SetCalendarEvent.html">SetCalendarEvent</a></td>
+	<td>Updates a calendar event.</td>
 </tr>
 </table>
 </div>
@@ -100,6 +112,6 @@
 </div>
 </div>
 <script src="resources/combined.js?35875716b4480449480876f68534f07e6f7793b8"></script>
-<script src="elementlist.js?02aab4c6d8fa2755311762b00b81fd9915ec36ff"></script>
+<script src="elementlist.js?2e615c201831616fda8ca52f7c74899df6036934"></script>
 </body>
 </html>

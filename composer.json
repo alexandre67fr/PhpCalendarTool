@@ -4,6 +4,7 @@
     "apigen/apigen": "4.0.0"
   },
   "scripts": {
-    "compile": "vendor/apigen/apigen/bin/apigen generate -s src -d docs && vendor/phpunit/phpunit/phpunit tests"
+    "compile": "rm -fr doc && vendor/apigen/apigen/bin/apigen generate -s src -d docs --debug && vendor/phpunit/phpunit/phpunit tests",
+    "commit": "./composer compile && git add -A . && git commit && git push"
   }
 }

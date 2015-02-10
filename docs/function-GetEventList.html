@@ -42,7 +42,9 @@
 
 			<h3>Functions</h3>
 			<ul>
+				<li><a href="function-CreateCalendarEvent.html">CreateCalendarEvent</a></li>
 				<li class="active"><a href="function-GetEventList.html">GetEventList</a></li>
+				<li><a href="function-SetCalendarEvent.html">SetCalendarEvent</a></li>
 			</ul>
 		</div>
 	</div>
@@ -80,7 +82,43 @@
 
 
 	<div class="description">
-	<p>Gets the list of all events in all calendars, except deleted and events without both start and end datetime</p>
+	<p>Gets the list of all events in all calendars, except deleted and events without both start and end datetime
+It is described <a href="https://developers.google.com/google-apps/calendar/v3/reference/events/list#timeMax">here</a> how timestamps act.
+Bounds are exclusive for an event's start/end time to filter by. They are optional. The default is not to filter by start/end time.</p>
+
+<p>Examples:</p>
+
+<pre><span class="php-comment">//</span>
+<span class="php-comment">// Get all events in all calendars</span>
+<span class="php-comment">//</span>
+GetEventList();
+
+<span class="php-comment">//</span>
+<span class="php-comment">// Get all events from January, 1st, 2015 at 00:00 until February, 1st, 2015 23:59:59</span>
+<span class="php-comment">//</span>
+GetEventList(<span class="php-quote">'2015-01-01'</span>, <span class="php-quote">'2015-02-01'</span>);
+
+<span class="php-comment">//</span>
+<span class="php-comment">// Get all events starting from January, 15th, 2015</span>
+<span class="php-comment">//</span>
+GetEventList(<span class="php-quote">'2015-01-15'</span>);
+
+<span class="php-comment">//</span>
+<span class="php-comment">// Get all events starting until January, 15th, 2015 at 12:00</span>
+<span class="php-comment">//</span>
+GetEventList(<span class="php-keyword1">NULL</span>, <span class="php-quote">'2015-01-15 12:00'</span>);
+GetEventList(<span class="php-keyword1">NULL</span>, <span class="php-num">1421319600</span>); <span class="php-comment">// UNIX timestamp is also supported</span>
+GetEventList(<span class="php-keyword1">FALSE</span>, <span class="php-quote">'2015-01-15 12:00'</span>);
+GetEventList(<span class="php-quote">''</span>, <span class="php-quote">'2015-01-15 12:00'</span>);
+GetEventList(<span class="php-num">0</span>, <span class="php-quote">'2015-01-15 12:00 GMT+1'</span>); <span class="php-comment">// If timezone is set to Central Europe</span>
+
+<span class="php-comment">//</span>
+<span class="php-comment">// Get all events from the first calendar</span>
+<span class="php-comment">//</span>
+<span class="php-var">$calendars</span> = PHPCalendar\Calendar::all();
+<span class="php-var">$first_calendar</span> = <span class="php-keyword2">array_shift</span>( <span class="php-var">$calendars</span> );
+<span class="php-var">$events</span> = GetEventList(<span class="php-keyword1">NULL</span>, <span class="php-keyword1">NULL</span>, <span class="php-var">$first_calendar</span>);
+<span class="php-var">$events</span> = GetEventList(<span class="php-keyword1">NULL</span>, <span class="php-keyword1">NULL</span>, <span class="php-var">$first_calendar</span>-&gt;id); <span class="php-comment">// this is the same</span></pre>
 	</div>
 
 	<div class="info">
@@ -90,10 +128,12 @@
 				Alexandre S. <a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#x61;&#x6c;&#x65;&#x78;&#97;&#110;&#100;&#114;&#101;&#54;&#55;&#102;&#114;&#64;&#103;ma&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">&#x61;&#x6c;&#x65;&#x78;&#97;&#110;&#100;&#114;&#101;&#54;&#55;&#102;&#114;&#64;&#103;ma&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a><br>
 				<b>Uses:</b>
 				<code><a href="class-PHPCalendar.Event.html">PHPCalendar\Event</a></code><br>
-				<b>Link:</b>
-				<a href="https://developers.google.com/google-apps/calendar/v3/reference/events/list">Events:List method on Google Calendar API v3 Reference</a><br>
+				<b>Uses:</b>
+				<code><a href="class-PHPCalendar.Calendar.html">PHPCalendar\Calendar</a></code><br>
+				<b>Reference:</b>
+				<a href="https://developers.google.com/google-apps/calendar/v3/reference/events/list">Events:List() method of Google Calendar API v3</a><br>
 		<b>Located at</b>
-		<a href="source-function-GetEventList.html#41-55" title="Go to source code">
+		<a href="source-function-GetEventList.html#54-107" title="Go to source code">
 			calendar_tool.php
 		</a><br>
 	</div>
@@ -101,15 +141,20 @@
 
 	<table class="summary" id="parameters">
 	<caption>Parameters summary</caption>
-	<tr id="$ts_oldest">
-		<td class="name"><code>string|integer</code></td>
-		<td class="value"><code><var>$ts_oldest</var></code></td>
-		<td>Date time or timestamp of the oldest returned event</td>
+	<tr id="$start_datetime">
+		<td class="name"><code>datetime|timestamp</code></td>
+		<td class="value"><code><var>$start_datetime</var> = <span class="php-keyword1">NULL</span></code></td>
+		<td>Date time or timestamp of the oldest returned event. Optional.</td>
 	</tr>
-	<tr id="$ts_newest">
-		<td class="name"><code>string|integer</code></td>
-		<td class="value"><code><var>$ts_newest</var></code></td>
-		<td>Date time or timestamp of the newest returned event</td>
+	<tr id="$end_datetime">
+		<td class="name"><code>datetime|timestamp</code></td>
+		<td class="value"><code><var>$end_datetime</var> = <span class="php-keyword1">NULL</span></code></td>
+		<td>Date time or timestamp of the newest returned event. Optional.</td>
+	</tr>
+	<tr id="$calendar">
+		<td class="name"><code><code><a href="class-PHPCalendar.Calendar.html">PHPCalendar\Calendar</a></code>|string</code></td>
+		<td class="value"><code><var>$calendar</var> = <span class="php-keyword1">NULL</span></code></td>
+		<td>Show events only from this calendar. Can be an object or calendar ID. Optional.</td>
 	</tr>
 	</table>
 
@@ -117,10 +162,10 @@
 	<caption>Return value summary</caption>
 	<tr>
 		<td class="name"><code>
-			PHPCalendarEvent[]
+			<code><a href="class-PHPCalendar.Event.html">PHPCalendar\Event</a>[]</code>
 		</code></td>
 		<td>
-			Array of calendar events, or an empty array if no events were found
+			Array of events. Or an empty array if no events were found.
 		</td>
 	</tr>
 	</table>
@@ -134,6 +179,6 @@
 </div>
 </div>
 <script src="resources/combined.js?35875716b4480449480876f68534f07e6f7793b8"></script>
-<script src="elementlist.js?02aab4c6d8fa2755311762b00b81fd9915ec36ff"></script>
+<script src="elementlist.js?2e615c201831616fda8ca52f7c74899df6036934"></script>
 </body>
 </html>
