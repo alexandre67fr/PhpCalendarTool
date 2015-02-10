@@ -12,7 +12,7 @@
 /**
  * Settings of the application
  *
- * They can be obtained here in Google Console <https://code.google.com/apis/console>
+ * They can be obtained here in {@link https://code.google.com/apis/console Google Console}
  * Choose "Credentials" → "OAuth" → "Create new Client ID" → "Service account"
  * @link https://code.google.com/apis/console Google Console
  *
@@ -41,20 +41,24 @@ define('PHPCALTOOL_KEY_FILE_LOCATION', '../keys/certificate.p12');
 
 /**
  * Autoload classes
+ *
+ * @param string $class
+ * Class name. Includes namespace
+ *
  * @internal
  */
 function phpcalendar_autoloader($class)
 {
+  // Remove namespace prefix
   $class = str_replace('PHPCalendar\\', '', $class);
+
   $file = __DIR__ . '/classes/' . $class . '.php';
   @include $file;
 }
 spl_autoload_register('phpcalendar_autoloader');
 
 /**
- * Gets the list of all events in all calendars, except deleted and events without both start and end datetime
- * It is described {@link https://developers.google.com/google-apps/calendar/v3/reference/events/list#timeMax here} how timestamps act.
- * Bounds are exclusive for an event's start/end time to filter by. They are optional. The default is not to filter by start/end time.
+ * Gets the list of all events in all calendars, except deleted and events without both start and end datetime.
  *
  * Examples:
  *
@@ -94,11 +98,14 @@ spl_autoload_register('phpcalendar_autoloader');
  *
  * @uses PHPCalendar\Event
  * @uses PHPCalendar\Calendar
- * @reference {@link https://developers.google.com/google-apps/calendar/v3/reference/events/list Events:List() method of Google Calendar API v3}
+ * @link https://developers.google.com/google-apps/calendar/v3/reference/events/list
  *
- * @param datetime|timestamp                  $start_datetime   Date time or timestamp of the oldest returned event. Optional.
- * @param datetime|timestamp                  $end_datetime     Date time or timestamp of the newest returned event. Optional.
- * @param PHPCalendar\Calendar|string         $calendar         Show events only from this calendar. Can be an object or calendar ID. Optional.
+ * @param datetime|timestamp $start_datetime 
+ * Date time or timestamp of the oldest returned event. Optional.
+ * @param datetime|timestamp $end_datetime     
+ * Date time or timestamp of the newest returned event. Optional.
+ * @param PHPCalendar\Calendar|string $calendar         
+ * Show events only from this calendar. Can be an object or calendar ID. Optional.
  *
  * @return PHPCalendar\Event[] Array of events. Or an empty array if no events were found.
  */
@@ -113,21 +120,35 @@ function GetEventList($start_datetime=NULL, $end_datetime=NULL, $calendar=NULL)
  *
  * @uses PHPCalendar\Event
  * @uses PHPCalendar\Calendar
- * @reference {@link https://developers.google.com/google-apps/calendar/v3/reference/events/patch Events:Patch() method of Google Calendar API v3}
+ * @link https://developers.google.com/google-apps/calendar/v3/reference/events/patch
  *
- * @param PHPCalendar\Calendar|string          $calendar         Calendar to which an event belongs to. Can be an object or calendar ID.
- * @param PHPCalendar\Event|string             $event            Event which is being updated. Object or event ID.
- * @param string                               $heading          Title of the event. Optional.
- * @param string                               $location         Location of the event. Optional.
- * @param string                               $description      Description of the event. Optional.
- * @param datetime|timestamp                   $start_datetime   Date time or timestamp when the event starts. Optional.
- * @param datetime|timestamp                   $end_datetime     Date time or timestamp when the event ends. Optional.
+ * @param PHPCalendar\Calendar|string $calendar         
+ * Calendar to which an event belongs to. Can be an object or calendar ID.
+ * @param PHPCalendar\Event|string $event            
+ * Event which is being updated. Object or event ID.
+ * @param string $heading          
+ * Title of the event. Optional.
+ * @param string $location         
+ * Location of the event. Optional.
+ * @param string $description      
+ * Description of the event. Optional.
+ * @param datetime|timestamp $start_datetime   
+ * Date time or timestamp when the event starts. Optional.
+ * @param datetime|timestamp $end_datetime     
+ * Date time or timestamp when the event ends. Optional.
  *
  * @return boolean TRUE on success, FALSE on failure.
  *
  */
-function SetCalendarEvent($calendar, $event, $heading=NULL, $location=NULL, $description=NULL, $start_datetime=NULL, $end_datetime=NULL)
-{
+function SetCalendarEvent(
+  $calendar, 
+  $event, 
+  $heading=NULL, 
+  $location=NULL, 
+  $description=NULL, 
+  $start_datetime=NULL, 
+  $end_datetime=NULL
+) {
   
 }
 
@@ -136,19 +157,31 @@ function SetCalendarEvent($calendar, $event, $heading=NULL, $location=NULL, $des
  *
  * @uses PHPCalendar\Event
  * @uses PHPCalendar\Calendar
- * @reference {@link https://developers.google.com/google-apps/calendar/v3/reference/events/insert Events:Insert() method of Google Calendar API v3}
+ * @link https://developers.google.com/google-apps/calendar/v3/reference/events/insert
  *
- * @param PHPCalendar\Calendar|string          $calendar         Calendar where the event is being created. Can be an object or calendar ID.
- * @param string                               $heading          Title of the event. Optional.
- * @param string                               $location         Location of the event. Optional.
- * @param string                               $description      Description of the event. Optional.
- * @param datetime|timestamp                   $start_datetime   Date time or timestamp when the event starts. Optional.
- * @param datetime|timestamp                   $end_datetime     Date time or timestamp when the event ends. Optional.
+ * @param PHPCalendar\Calendar|string $calendar         
+ * Calendar where the event is being created. Can be an object or calendar ID.
+ * @param string $heading          
+ * Title of the event. Optional.
+ * @param string $location         
+ * Location of the event. Optional.
+ * @param string $description      
+ * Description of the event. Optional.
+ * @param datetime|timestamp $start_datetime   
+ * Date time or timestamp when the event starts. Optional.
+ * @param datetime|timestamp $end_datetime     
+ * Date time or timestamp when the event ends. Optional.
  *
  * @return boolean TRUE on success, FALSE on failure.
  *
  */
-function CreateCalendarEvent($calendar, $heading=NULL, $location=NULL, $description=NULL, $start_datetime=NULL, $end_datetime=NULL)
-{
+function CreateCalendarEvent(
+  $calendar, 
+  $heading=NULL, 
+  $location=NULL, 
+  $description=NULL, 
+  $start_datetime=NULL, 
+  $end_datetime=NULL
+) {
   
 }

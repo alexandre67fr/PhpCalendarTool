@@ -91,7 +91,7 @@
 </span><span id="12" class="l"><a href="#12"> 12: </a><span class="php-comment">/**
 </span></span><span id="13" class="l"><a href="#13"> 13: </a><span class="php-comment"> * Settings of the application
 </span></span><span id="14" class="l"><a href="#14"> 14: </a><span class="php-comment"> *
-</span></span><span id="15" class="l"><a href="#15"> 15: </a><span class="php-comment"> * They can be obtained here in Google Console &lt;https://code.google.com/apis/console&gt;
+</span></span><span id="15" class="l"><a href="#15"> 15: </a><span class="php-comment"> * They can be obtained here in {@link https://code.google.com/apis/console Google Console}
 </span></span><span id="16" class="l"><a href="#16"> 16: </a><span class="php-comment"> * Choose &quot;Credentials&quot; → &quot;OAuth&quot; → &quot;Create new Client ID&quot; → &quot;Service account&quot;
 </span></span><span id="17" class="l"><a href="#17"> 17: </a><span class="php-comment"> * @link https://code.google.com/apis/console Google Console
 </span></span><span id="18" class="l"><a href="#18"> 18: </a><span class="php-comment"> *
@@ -131,107 +131,134 @@
 </span><span id="52" class="l"><a href="#52"> 52: </a><span class="php-keyword2">spl_autoload_register</span>(<span class="php-quote">'phpcalendar_autoloader'</span>);
 </span><span id="53" class="l"><a href="#53"> 53: </a>
 </span><span id="54" class="l"><a href="#54"> 54: </a><span class="php-comment">/**
-</span></span><span id="55" class="l"><a href="#55"> 55: </a><span class="php-comment"> * Gets the list of all events in all calendars, except deleted and events without both start and end datetime
-</span></span><span id="56" class="l"><a href="#56"> 56: </a><span class="php-comment"> * It is described {@link https://developers.google.com/google-apps/calendar/v3/reference/events/list#timeMax here} how timestamps act.
-</span></span><span id="57" class="l"><a href="#57"> 57: </a><span class="php-comment"> * Bounds are exclusive for an event's start/end time to filter by. They are optional. The default is not to filter by start/end time.
+</span></span><span id="55" class="l"><a href="#55"> 55: </a><span class="php-comment"> * Gets the list of all events in all calendars, except deleted and events without both start and end datetime.
+</span></span><span id="56" class="l"><a href="#56"> 56: </a><span class="php-comment"> *
+</span></span><span id="57" class="l"><a href="#57"> 57: </a><span class="php-comment"> * Examples:
 </span></span><span id="58" class="l"><a href="#58"> 58: </a><span class="php-comment"> *
-</span></span><span id="59" class="l"><a href="#59"> 59: </a><span class="php-comment"> * Examples:
-</span></span><span id="60" class="l"><a href="#60"> 60: </a><span class="php-comment"> *
-</span></span><span id="61" class="l"><a href="#61"> 61: </a><span class="php-comment"> * &lt;code&gt;
+</span></span><span id="59" class="l"><a href="#59"> 59: </a><span class="php-comment"> * &lt;code&gt;
+</span></span><span id="60" class="l"><a href="#60"> 60: </a><span class="php-comment"> * //
+</span></span><span id="61" class="l"><a href="#61"> 61: </a><span class="php-comment"> * // Get all events in all calendars
 </span></span><span id="62" class="l"><a href="#62"> 62: </a><span class="php-comment"> * //
-</span></span><span id="63" class="l"><a href="#63"> 63: </a><span class="php-comment"> * // Get all events in all calendars
-</span></span><span id="64" class="l"><a href="#64"> 64: </a><span class="php-comment"> * //
-</span></span><span id="65" class="l"><a href="#65"> 65: </a><span class="php-comment"> * GetEventList();
-</span></span><span id="66" class="l"><a href="#66"> 66: </a><span class="php-comment"> *
+</span></span><span id="63" class="l"><a href="#63"> 63: </a><span class="php-comment"> * GetEventList();
+</span></span><span id="64" class="l"><a href="#64"> 64: </a><span class="php-comment"> *
+</span></span><span id="65" class="l"><a href="#65"> 65: </a><span class="php-comment"> * //
+</span></span><span id="66" class="l"><a href="#66"> 66: </a><span class="php-comment"> * // Get all events from January, 1st, 2015 at 00:00 until February, 1st, 2015 23:59:59
 </span></span><span id="67" class="l"><a href="#67"> 67: </a><span class="php-comment"> * //
-</span></span><span id="68" class="l"><a href="#68"> 68: </a><span class="php-comment"> * // Get all events from January, 1st, 2015 at 00:00 until February, 1st, 2015 23:59:59
-</span></span><span id="69" class="l"><a href="#69"> 69: </a><span class="php-comment"> * //
-</span></span><span id="70" class="l"><a href="#70"> 70: </a><span class="php-comment"> * GetEventList('2015-01-01', '2015-02-01');
-</span></span><span id="71" class="l"><a href="#71"> 71: </a><span class="php-comment"> *
+</span></span><span id="68" class="l"><a href="#68"> 68: </a><span class="php-comment"> * GetEventList('2015-01-01', '2015-02-01');
+</span></span><span id="69" class="l"><a href="#69"> 69: </a><span class="php-comment"> *
+</span></span><span id="70" class="l"><a href="#70"> 70: </a><span class="php-comment"> * //
+</span></span><span id="71" class="l"><a href="#71"> 71: </a><span class="php-comment"> * // Get all events starting from January, 15th, 2015
 </span></span><span id="72" class="l"><a href="#72"> 72: </a><span class="php-comment"> * //
-</span></span><span id="73" class="l"><a href="#73"> 73: </a><span class="php-comment"> * // Get all events starting from January, 15th, 2015
-</span></span><span id="74" class="l"><a href="#74"> 74: </a><span class="php-comment"> * //
-</span></span><span id="75" class="l"><a href="#75"> 75: </a><span class="php-comment"> * GetEventList('2015-01-15');
-</span></span><span id="76" class="l"><a href="#76"> 76: </a><span class="php-comment"> *
+</span></span><span id="73" class="l"><a href="#73"> 73: </a><span class="php-comment"> * GetEventList('2015-01-15');
+</span></span><span id="74" class="l"><a href="#74"> 74: </a><span class="php-comment"> *
+</span></span><span id="75" class="l"><a href="#75"> 75: </a><span class="php-comment"> * //
+</span></span><span id="76" class="l"><a href="#76"> 76: </a><span class="php-comment"> * // Get all events starting until January, 15th, 2015 at 12:00
 </span></span><span id="77" class="l"><a href="#77"> 77: </a><span class="php-comment"> * //
-</span></span><span id="78" class="l"><a href="#78"> 78: </a><span class="php-comment"> * // Get all events starting until January, 15th, 2015 at 12:00
-</span></span><span id="79" class="l"><a href="#79"> 79: </a><span class="php-comment"> * //
-</span></span><span id="80" class="l"><a href="#80"> 80: </a><span class="php-comment"> * GetEventList(NULL, '2015-01-15 12:00');
-</span></span><span id="81" class="l"><a href="#81"> 81: </a><span class="php-comment"> * GetEventList(NULL, 1421319600); // UNIX timestamp is also supported
-</span></span><span id="82" class="l"><a href="#82"> 82: </a><span class="php-comment"> * GetEventList(FALSE, '2015-01-15 12:00');
-</span></span><span id="83" class="l"><a href="#83"> 83: </a><span class="php-comment"> * GetEventList('', '2015-01-15 12:00');
-</span></span><span id="84" class="l"><a href="#84"> 84: </a><span class="php-comment"> * GetEventList(0, '2015-01-15 12:00 GMT+1'); // If timezone is set to Central Europe
-</span></span><span id="85" class="l"><a href="#85"> 85: </a><span class="php-comment"> *
+</span></span><span id="78" class="l"><a href="#78"> 78: </a><span class="php-comment"> * GetEventList(NULL, '2015-01-15 12:00');
+</span></span><span id="79" class="l"><a href="#79"> 79: </a><span class="php-comment"> * GetEventList(NULL, 1421319600); // UNIX timestamp is also supported
+</span></span><span id="80" class="l"><a href="#80"> 80: </a><span class="php-comment"> * GetEventList(FALSE, '2015-01-15 12:00');
+</span></span><span id="81" class="l"><a href="#81"> 81: </a><span class="php-comment"> * GetEventList('', '2015-01-15 12:00');
+</span></span><span id="82" class="l"><a href="#82"> 82: </a><span class="php-comment"> * GetEventList(0, '2015-01-15 12:00 GMT+1'); // If timezone is set to Central Europe
+</span></span><span id="83" class="l"><a href="#83"> 83: </a><span class="php-comment"> *
+</span></span><span id="84" class="l"><a href="#84"> 84: </a><span class="php-comment"> * //
+</span></span><span id="85" class="l"><a href="#85"> 85: </a><span class="php-comment"> * // Get all events from the first calendar
 </span></span><span id="86" class="l"><a href="#86"> 86: </a><span class="php-comment"> * //
-</span></span><span id="87" class="l"><a href="#87"> 87: </a><span class="php-comment"> * // Get all events from the first calendar
-</span></span><span id="88" class="l"><a href="#88"> 88: </a><span class="php-comment"> * //
-</span></span><span id="89" class="l"><a href="#89"> 89: </a><span class="php-comment"> * $calendars = PHPCalendar\Calendar::all();
-</span></span><span id="90" class="l"><a href="#90"> 90: </a><span class="php-comment"> * $first_calendar = array_shift( $calendars );
-</span></span><span id="91" class="l"><a href="#91"> 91: </a><span class="php-comment"> * $events = GetEventList(NULL, NULL, $first_calendar);
-</span></span><span id="92" class="l"><a href="#92"> 92: </a><span class="php-comment"> * $events = GetEventList(NULL, NULL, $first_calendar-&gt;id); // this is the same
-</span></span><span id="93" class="l"><a href="#93"> 93: </a><span class="php-comment"> * &lt;/code&gt;
-</span></span><span id="94" class="l"><a href="#94"> 94: </a><span class="php-comment"> *
-</span></span><span id="95" class="l"><a href="#95"> 95: </a><span class="php-comment"> * @uses PHPCalendar\Event
-</span></span><span id="96" class="l"><a href="#96"> 96: </a><span class="php-comment"> * @uses PHPCalendar\Calendar
-</span></span><span id="97" class="l"><a href="#97"> 97: </a><span class="php-comment"> * @reference {@link https://developers.google.com/google-apps/calendar/v3/reference/events/list Events:List() method of Google Calendar API v3}
-</span></span><span id="98" class="l"><a href="#98"> 98: </a><span class="php-comment"> *
-</span></span><span id="99" class="l"><a href="#99"> 99: </a><span class="php-comment"> * @param datetime|timestamp                  $start_datetime   Date time or timestamp of the oldest returned event. Optional.
-</span></span><span id="100" class="l"><a href="#100">100: </a><span class="php-comment"> * @param datetime|timestamp                  $end_datetime     Date time or timestamp of the newest returned event. Optional.
-</span></span><span id="101" class="l"><a href="#101">101: </a><span class="php-comment"> * @param PHPCalendar\Calendar|string         $calendar         Show events only from this calendar. Can be an object or calendar ID. Optional.
-</span></span><span id="102" class="l"><a href="#102">102: </a><span class="php-comment"> *
-</span></span><span id="103" class="l"><a href="#103">103: </a><span class="php-comment"> * @return PHPCalendar\Event[] Array of events. Or an empty array if no events were found.
-</span></span><span id="104" class="l"><a href="#104">104: </a><span class="php-comment"> */</span>
-</span><span id="105" class="l"><a href="#105">105: </a><span class="php-keyword1">function</span> GetEventList(<span class="php-var">$start_datetime</span>=<span class="php-keyword1">NULL</span>, <span class="php-var">$end_datetime</span>=<span class="php-keyword1">NULL</span>, <span class="php-var">$calendar</span>=<span class="php-keyword1">NULL</span>)
-</span><span id="106" class="l"><a href="#106">106: </a>{
-</span><span id="107" class="l"><a href="#107">107: </a>}
-</span><span id="108" class="l"><a href="#108">108: </a>
-</span><span id="109" class="l"><a href="#109">109: </a><span class="php-comment">/**
-</span></span><span id="110" class="l"><a href="#110">110: </a><span class="php-comment"> * Updates a calendar event.
-</span></span><span id="111" class="l"><a href="#111">111: </a><span class="php-comment"> *
-</span></span><span id="112" class="l"><a href="#112">112: </a><span class="php-comment"> * If some arguments are supplied as NULL, than the corresponding property will not be changed.
-</span></span><span id="113" class="l"><a href="#113">113: </a><span class="php-comment"> *
-</span></span><span id="114" class="l"><a href="#114">114: </a><span class="php-comment"> * @uses PHPCalendar\Event
-</span></span><span id="115" class="l"><a href="#115">115: </a><span class="php-comment"> * @uses PHPCalendar\Calendar
-</span></span><span id="116" class="l"><a href="#116">116: </a><span class="php-comment"> * @reference {@link https://developers.google.com/google-apps/calendar/v3/reference/events/patch Events:Patch() method of Google Calendar API v3}
-</span></span><span id="117" class="l"><a href="#117">117: </a><span class="php-comment"> *
-</span></span><span id="118" class="l"><a href="#118">118: </a><span class="php-comment"> * @param PHPCalendar\Calendar|string          $calendar         Calendar to which an event belongs to. Can be an object or calendar ID.
-</span></span><span id="119" class="l"><a href="#119">119: </a><span class="php-comment"> * @param PHPCalendar\Event|string             $event            Event which is being updated. Object or event ID.
-</span></span><span id="120" class="l"><a href="#120">120: </a><span class="php-comment"> * @param string                               $heading          Title of the event. Optional.
-</span></span><span id="121" class="l"><a href="#121">121: </a><span class="php-comment"> * @param string                               $location         Location of the event. Optional.
-</span></span><span id="122" class="l"><a href="#122">122: </a><span class="php-comment"> * @param string                               $description      Description of the event. Optional.
-</span></span><span id="123" class="l"><a href="#123">123: </a><span class="php-comment"> * @param datetime|timestamp                   $start_datetime   Date time or timestamp when the event starts. Optional.
-</span></span><span id="124" class="l"><a href="#124">124: </a><span class="php-comment"> * @param datetime|timestamp                   $end_datetime     Date time or timestamp when the event ends. Optional.
-</span></span><span id="125" class="l"><a href="#125">125: </a><span class="php-comment"> *
-</span></span><span id="126" class="l"><a href="#126">126: </a><span class="php-comment"> * @return boolean TRUE on success, FALSE on failure.
-</span></span><span id="127" class="l"><a href="#127">127: </a><span class="php-comment"> *
-</span></span><span id="128" class="l"><a href="#128">128: </a><span class="php-comment"> */</span>
-</span><span id="129" class="l"><a href="#129">129: </a><span class="php-keyword1">function</span> SetCalendarEvent(<span class="php-var">$calendar</span>, <span class="php-var">$event</span>, <span class="php-var">$heading</span>=<span class="php-keyword1">NULL</span>, <span class="php-var">$location</span>=<span class="php-keyword1">NULL</span>, <span class="php-var">$description</span>=<span class="php-keyword1">NULL</span>, <span class="php-var">$start_datetime</span>=<span class="php-keyword1">NULL</span>, <span class="php-var">$end_datetime</span>=<span class="php-keyword1">NULL</span>)
-</span><span id="130" class="l"><a href="#130">130: </a>{
-</span><span id="131" class="l"><a href="#131">131: </a>  
-</span><span id="132" class="l"><a href="#132">132: </a>}
-</span><span id="133" class="l"><a href="#133">133: </a>
-</span><span id="134" class="l"><a href="#134">134: </a><span class="php-comment">/**
-</span></span><span id="135" class="l"><a href="#135">135: </a><span class="php-comment"> * Creates a calendar event.
-</span></span><span id="136" class="l"><a href="#136">136: </a><span class="php-comment"> *
-</span></span><span id="137" class="l"><a href="#137">137: </a><span class="php-comment"> * @uses PHPCalendar\Event
-</span></span><span id="138" class="l"><a href="#138">138: </a><span class="php-comment"> * @uses PHPCalendar\Calendar
-</span></span><span id="139" class="l"><a href="#139">139: </a><span class="php-comment"> * @reference {@link https://developers.google.com/google-apps/calendar/v3/reference/events/insert Events:Insert() method of Google Calendar API v3}
-</span></span><span id="140" class="l"><a href="#140">140: </a><span class="php-comment"> *
-</span></span><span id="141" class="l"><a href="#141">141: </a><span class="php-comment"> * @param PHPCalendar\Calendar|string          $calendar         Calendar where the event is being created. Can be an object or calendar ID.
-</span></span><span id="142" class="l"><a href="#142">142: </a><span class="php-comment"> * @param string                               $heading          Title of the event. Optional.
-</span></span><span id="143" class="l"><a href="#143">143: </a><span class="php-comment"> * @param string                               $location         Location of the event. Optional.
-</span></span><span id="144" class="l"><a href="#144">144: </a><span class="php-comment"> * @param string                               $description      Description of the event. Optional.
-</span></span><span id="145" class="l"><a href="#145">145: </a><span class="php-comment"> * @param datetime|timestamp                   $start_datetime   Date time or timestamp when the event starts. Optional.
-</span></span><span id="146" class="l"><a href="#146">146: </a><span class="php-comment"> * @param datetime|timestamp                   $end_datetime     Date time or timestamp when the event ends. Optional.
-</span></span><span id="147" class="l"><a href="#147">147: </a><span class="php-comment"> *
-</span></span><span id="148" class="l"><a href="#148">148: </a><span class="php-comment"> * @return boolean TRUE on success, FALSE on failure.
-</span></span><span id="149" class="l"><a href="#149">149: </a><span class="php-comment"> *
-</span></span><span id="150" class="l"><a href="#150">150: </a><span class="php-comment"> */</span>
-</span><span id="151" class="l"><a href="#151">151: </a><span class="php-keyword1">function</span> CreateCalendarEvent(<span class="php-var">$calendar</span>, <span class="php-var">$heading</span>=<span class="php-keyword1">NULL</span>, <span class="php-var">$location</span>=<span class="php-keyword1">NULL</span>, <span class="php-var">$description</span>=<span class="php-keyword1">NULL</span>, <span class="php-var">$start_datetime</span>=<span class="php-keyword1">NULL</span>, <span class="php-var">$end_datetime</span>=<span class="php-keyword1">NULL</span>)
-</span><span id="152" class="l"><a href="#152">152: </a>{
-</span><span id="153" class="l"><a href="#153">153: </a>  
-</span><span id="154" class="l"><a href="#154">154: </a>}
-</span><span id="155" class="l"><a href="#155">155: </a></span></code></pre>
+</span></span><span id="87" class="l"><a href="#87"> 87: </a><span class="php-comment"> * $calendars = PHPCalendar\Calendar::all();
+</span></span><span id="88" class="l"><a href="#88"> 88: </a><span class="php-comment"> * $first_calendar = array_shift( $calendars );
+</span></span><span id="89" class="l"><a href="#89"> 89: </a><span class="php-comment"> * $events = GetEventList(NULL, NULL, $first_calendar);
+</span></span><span id="90" class="l"><a href="#90"> 90: </a><span class="php-comment"> * $events = GetEventList(NULL, NULL, $first_calendar-&gt;id); // this is the same
+</span></span><span id="91" class="l"><a href="#91"> 91: </a><span class="php-comment"> * &lt;/code&gt;
+</span></span><span id="92" class="l"><a href="#92"> 92: </a><span class="php-comment"> *
+</span></span><span id="93" class="l"><a href="#93"> 93: </a><span class="php-comment"> * @uses PHPCalendar\Event
+</span></span><span id="94" class="l"><a href="#94"> 94: </a><span class="php-comment"> * @uses PHPCalendar\Calendar
+</span></span><span id="95" class="l"><a href="#95"> 95: </a><span class="php-comment"> * @link https://developers.google.com/google-apps/calendar/v3/reference/events/list
+</span></span><span id="96" class="l"><a href="#96"> 96: </a><span class="php-comment"> *
+</span></span><span id="97" class="l"><a href="#97"> 97: </a><span class="php-comment"> * @param datetime|timestamp $start_datetime 
+</span></span><span id="98" class="l"><a href="#98"> 98: </a><span class="php-comment"> * Date time or timestamp of the oldest returned event. Optional.
+</span></span><span id="99" class="l"><a href="#99"> 99: </a><span class="php-comment"> * @param datetime|timestamp $end_datetime     
+</span></span><span id="100" class="l"><a href="#100">100: </a><span class="php-comment"> * Date time or timestamp of the newest returned event. Optional.
+</span></span><span id="101" class="l"><a href="#101">101: </a><span class="php-comment"> * @param PHPCalendar\Calendar|string $calendar         
+</span></span><span id="102" class="l"><a href="#102">102: </a><span class="php-comment"> * Show events only from this calendar. Can be an object or calendar ID. Optional.
+</span></span><span id="103" class="l"><a href="#103">103: </a><span class="php-comment"> *
+</span></span><span id="104" class="l"><a href="#104">104: </a><span class="php-comment"> * @return PHPCalendar\Event[] Array of events. Or an empty array if no events were found.
+</span></span><span id="105" class="l"><a href="#105">105: </a><span class="php-comment"> */</span>
+</span><span id="106" class="l"><a href="#106">106: </a><span class="php-keyword1">function</span> GetEventList(<span class="php-var">$start_datetime</span>=<span class="php-keyword1">NULL</span>, <span class="php-var">$end_datetime</span>=<span class="php-keyword1">NULL</span>, <span class="php-var">$calendar</span>=<span class="php-keyword1">NULL</span>)
+</span><span id="107" class="l"><a href="#107">107: </a>{
+</span><span id="108" class="l"><a href="#108">108: </a>}
+</span><span id="109" class="l"><a href="#109">109: </a>
+</span><span id="110" class="l"><a href="#110">110: </a><span class="php-comment">/**
+</span></span><span id="111" class="l"><a href="#111">111: </a><span class="php-comment"> * Updates a calendar event.
+</span></span><span id="112" class="l"><a href="#112">112: </a><span class="php-comment"> *
+</span></span><span id="113" class="l"><a href="#113">113: </a><span class="php-comment"> * If some arguments are supplied as NULL, than the corresponding property will not be changed.
+</span></span><span id="114" class="l"><a href="#114">114: </a><span class="php-comment"> *
+</span></span><span id="115" class="l"><a href="#115">115: </a><span class="php-comment"> * @uses PHPCalendar\Event
+</span></span><span id="116" class="l"><a href="#116">116: </a><span class="php-comment"> * @uses PHPCalendar\Calendar
+</span></span><span id="117" class="l"><a href="#117">117: </a><span class="php-comment"> * @link https://developers.google.com/google-apps/calendar/v3/reference/events/patch
+</span></span><span id="118" class="l"><a href="#118">118: </a><span class="php-comment"> *
+</span></span><span id="119" class="l"><a href="#119">119: </a><span class="php-comment"> * @param PHPCalendar\Calendar|string $calendar         
+</span></span><span id="120" class="l"><a href="#120">120: </a><span class="php-comment"> * Calendar to which an event belongs to. Can be an object or calendar ID.
+</span></span><span id="121" class="l"><a href="#121">121: </a><span class="php-comment"> * @param PHPCalendar\Event|string $event            
+</span></span><span id="122" class="l"><a href="#122">122: </a><span class="php-comment"> * Event which is being updated. Object or event ID.
+</span></span><span id="123" class="l"><a href="#123">123: </a><span class="php-comment"> * @param string $heading          
+</span></span><span id="124" class="l"><a href="#124">124: </a><span class="php-comment"> * Title of the event. Optional.
+</span></span><span id="125" class="l"><a href="#125">125: </a><span class="php-comment"> * @param string $location         
+</span></span><span id="126" class="l"><a href="#126">126: </a><span class="php-comment"> * Location of the event. Optional.
+</span></span><span id="127" class="l"><a href="#127">127: </a><span class="php-comment"> * @param string $description      
+</span></span><span id="128" class="l"><a href="#128">128: </a><span class="php-comment"> * Description of the event. Optional.
+</span></span><span id="129" class="l"><a href="#129">129: </a><span class="php-comment"> * @param datetime|timestamp $start_datetime   
+</span></span><span id="130" class="l"><a href="#130">130: </a><span class="php-comment"> * Date time or timestamp when the event starts. Optional.
+</span></span><span id="131" class="l"><a href="#131">131: </a><span class="php-comment"> * @param datetime|timestamp $end_datetime     
+</span></span><span id="132" class="l"><a href="#132">132: </a><span class="php-comment"> * Date time or timestamp when the event ends. Optional.
+</span></span><span id="133" class="l"><a href="#133">133: </a><span class="php-comment"> *
+</span></span><span id="134" class="l"><a href="#134">134: </a><span class="php-comment"> * @return boolean TRUE on success, FALSE on failure.
+</span></span><span id="135" class="l"><a href="#135">135: </a><span class="php-comment"> *
+</span></span><span id="136" class="l"><a href="#136">136: </a><span class="php-comment"> */</span>
+</span><span id="137" class="l"><a href="#137">137: </a><span class="php-keyword1">function</span> SetCalendarEvent(
+</span><span id="138" class="l"><a href="#138">138: </a>  <span class="php-var">$calendar</span>, 
+</span><span id="139" class="l"><a href="#139">139: </a>  <span class="php-var">$event</span>, 
+</span><span id="140" class="l"><a href="#140">140: </a>  <span class="php-var">$heading</span>=<span class="php-keyword1">NULL</span>, 
+</span><span id="141" class="l"><a href="#141">141: </a>  <span class="php-var">$location</span>=<span class="php-keyword1">NULL</span>, 
+</span><span id="142" class="l"><a href="#142">142: </a>  <span class="php-var">$description</span>=<span class="php-keyword1">NULL</span>, 
+</span><span id="143" class="l"><a href="#143">143: </a>  <span class="php-var">$start_datetime</span>=<span class="php-keyword1">NULL</span>, 
+</span><span id="144" class="l"><a href="#144">144: </a>  <span class="php-var">$end_datetime</span>=<span class="php-keyword1">NULL</span>
+</span><span id="145" class="l"><a href="#145">145: </a>) {
+</span><span id="146" class="l"><a href="#146">146: </a>  
+</span><span id="147" class="l"><a href="#147">147: </a>}
+</span><span id="148" class="l"><a href="#148">148: </a>
+</span><span id="149" class="l"><a href="#149">149: </a><span class="php-comment">/**
+</span></span><span id="150" class="l"><a href="#150">150: </a><span class="php-comment"> * Creates a calendar event.
+</span></span><span id="151" class="l"><a href="#151">151: </a><span class="php-comment"> *
+</span></span><span id="152" class="l"><a href="#152">152: </a><span class="php-comment"> * @uses PHPCalendar\Event
+</span></span><span id="153" class="l"><a href="#153">153: </a><span class="php-comment"> * @uses PHPCalendar\Calendar
+</span></span><span id="154" class="l"><a href="#154">154: </a><span class="php-comment"> * @link https://developers.google.com/google-apps/calendar/v3/reference/events/insert
+</span></span><span id="155" class="l"><a href="#155">155: </a><span class="php-comment"> *
+</span></span><span id="156" class="l"><a href="#156">156: </a><span class="php-comment"> * @param PHPCalendar\Calendar|string $calendar         
+</span></span><span id="157" class="l"><a href="#157">157: </a><span class="php-comment"> * Calendar where the event is being created. Can be an object or calendar ID.
+</span></span><span id="158" class="l"><a href="#158">158: </a><span class="php-comment"> * @param string $heading          
+</span></span><span id="159" class="l"><a href="#159">159: </a><span class="php-comment"> * Title of the event. Optional.
+</span></span><span id="160" class="l"><a href="#160">160: </a><span class="php-comment"> * @param string $location         
+</span></span><span id="161" class="l"><a href="#161">161: </a><span class="php-comment"> * Location of the event. Optional.
+</span></span><span id="162" class="l"><a href="#162">162: </a><span class="php-comment"> * @param string $description      
+</span></span><span id="163" class="l"><a href="#163">163: </a><span class="php-comment"> * Description of the event. Optional.
+</span></span><span id="164" class="l"><a href="#164">164: </a><span class="php-comment"> * @param datetime|timestamp $start_datetime   
+</span></span><span id="165" class="l"><a href="#165">165: </a><span class="php-comment"> * Date time or timestamp when the event starts. Optional.
+</span></span><span id="166" class="l"><a href="#166">166: </a><span class="php-comment"> * @param datetime|timestamp $end_datetime     
+</span></span><span id="167" class="l"><a href="#167">167: </a><span class="php-comment"> * Date time or timestamp when the event ends. Optional.
+</span></span><span id="168" class="l"><a href="#168">168: </a><span class="php-comment"> *
+</span></span><span id="169" class="l"><a href="#169">169: </a><span class="php-comment"> * @return boolean TRUE on success, FALSE on failure.
+</span></span><span id="170" class="l"><a href="#170">170: </a><span class="php-comment"> *
+</span></span><span id="171" class="l"><a href="#171">171: </a><span class="php-comment"> */</span>
+</span><span id="172" class="l"><a href="#172">172: </a><span class="php-keyword1">function</span> CreateCalendarEvent(
+</span><span id="173" class="l"><a href="#173">173: </a>  <span class="php-var">$calendar</span>, 
+</span><span id="174" class="l"><a href="#174">174: </a>  <span class="php-var">$heading</span>=<span class="php-keyword1">NULL</span>, 
+</span><span id="175" class="l"><a href="#175">175: </a>  <span class="php-var">$location</span>=<span class="php-keyword1">NULL</span>, 
+</span><span id="176" class="l"><a href="#176">176: </a>  <span class="php-var">$description</span>=<span class="php-keyword1">NULL</span>, 
+</span><span id="177" class="l"><a href="#177">177: </a>  <span class="php-var">$start_datetime</span>=<span class="php-keyword1">NULL</span>, 
+</span><span id="178" class="l"><a href="#178">178: </a>  <span class="php-var">$end_datetime</span>=<span class="php-keyword1">NULL</span>
+</span><span id="179" class="l"><a href="#179">179: </a>) {
+</span><span id="180" class="l"><a href="#180">180: </a>  
+</span><span id="181" class="l"><a href="#181">181: </a>}
+</span><span id="182" class="l"><a href="#182">182: </a></span></code></pre>
 
 	<div id="footer">
 		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
