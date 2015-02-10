@@ -16,28 +16,53 @@
  * Choose "Credentials" → "OAuth" → "Create new Client ID" → "Service account"
  * @link https://code.google.com/apis/console Google Console
  *
- * After credentials are created, please change the three settings below
+ *
+ * After credentials are created, please change the three settings below.
+ * Also, please do not forget to enable Google Calendar API in "APIs & Auth" → APIs
  */
 
 /**
  * Google API: Client ID
+ *
  * @global PHPCALTOOL_CLIENT_ID string
  */
 define('PHPCALTOOL_CLIENT_ID', '1079666599882-jj99t30kk5tgpns5lqqcqioap4k22oho.apps.googleusercontent.com');
 
 /**
  * Google API: Service account name
+ *
  * @global PHPCALTOOL_SERVICE_ACCOUNT_NAME string
  */
 define('PHPCALTOOL_SERVICE_ACCOUNT_NAME', '1079666599882-jj99t30kk5tgpns5lqqcqioap4k22oho@developer.gserviceaccount.com');
 
 /**
  * Google API: Path to certificate file
+ *
  * It should be absolute, or relative to the executed file
  * E.g.: __DIR__ . "/certificate.p12"
- * @global PHPCALTOOL_CLIENT_ID string Path to the certificate file
+ *
+ * @global PHPCALTOOL_CLIENT_ID string
+ * Path to the certificate file
  */
-define('PHPCALTOOL_KEY_FILE_LOCATION', '../keys/certificate.p12');
+define('PHPCALTOOL_KEY_FILE_LOCATION', __DIR__ . '/../keys/certificate.p12');
+
+
+/**
+ * Temporary file where recent access token is saved
+ *
+ * @global PHPCALTOOL_TMP_FILE string
+ * Path to the temporary file
+ *
+ * Default: MD5 hash of auth settings in the temporary folder
+ */
+define(
+  'PHPCALTOOL_TMP_FILE', 
+  sys_get_temp_dir() . '/access-token-' . md5( 
+    PHPCALTOOL_SERVICE_ACCOUNT_NAME . 
+    PHPCALTOOL_CLIENT_ID . 
+    PHPCALTOOL_KEY_FILE_LOCATION 
+  )
+);
 
 /**
  * Autoload classes

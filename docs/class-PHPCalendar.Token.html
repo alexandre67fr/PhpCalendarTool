@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class PHPCalendar\Event</title>
+	<title>Class PHPCalendar\Token</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -38,12 +38,12 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-PHPCalendar.Calendar.html">Calendar</a></li>
-				<li class="active"><a href="class-PHPCalendar.Event.html">Event</a></li>
+				<li><a href="class-PHPCalendar.Event.html">Event</a></li>
 				<li><a href="class-PHPCalendar.GoogleOauth.html">GoogleOauth</a></li>
 				<li><a href="class-PHPCalendar.GoogleOauthService.html">GoogleOauthService</a></li>
 				<li><a href="class-PHPCalendar.Http.html">Http</a></li>
 				<li><a href="class-PHPCalendar.Request.html">Request</a></li>
-				<li><a href="class-PHPCalendar.Token.html">Token</a></li>
+				<li class="active"><a href="class-PHPCalendar.Token.html">Token</a></li>
 			</ul>
 
 			<h3>Interfaces</h3>
@@ -86,11 +86,11 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class Event</h1>
+	<h1>Class Token</h1>
 
 
 	<div class="description">
-	<p>Calendar Event Class</p>
+	<p>Abstract Class to get access token</p>
 	</div>
 
 
@@ -102,63 +102,68 @@
 
 
 	<div class="info">
-		
+		<b>Abstract</b><br>
 		
 		<b>Namespace:</b> <a href="namespace-PHPCalendar.html">PHPCalendar</a><br>
 		<b>Package:</b> PHPCalendarTool<br>
 
-				<b>Used by:</b>
-				<code><a href="function-CreateCalendarEvent.html">CreateCalendarEvent()</a></code><br>
-				<b>Used by:</b>
-				<code><a href="function-GetEventList.html">GetEventList()</a></code><br>
-				<b>Used by:</b>
-				<code><a href="function-SetCalendarEvent.html">SetCalendarEvent()</a></code><br>
-			<b>Located at</b> <a href="source-class-PHPCalendar.Event.html#5-16" title="Go to source code">classes/Event.php</a>
+			<b>Located at</b> <a href="source-class-PHPCalendar.Token.html#5-83" title="Go to source code">classes/Token.php</a>
 		<br>
 	</div>
 
 
 
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="get" id="_get">
 
-
-
-
-
-
-
-
-
-
-
-
-	<table class="summary properties" id="properties">
-	<caption>Properties summary</caption>
-	<tr data-order="id" id="$id">
 		<td class="attributes"><code>
-			public  
+			 public static
+
+			string
 			
-		</code></td>
-
-		<td class="name">
-				<a href="source-class-PHPCalendar.Event.html#11-15" title="Go to source code"><var>$id</var></a>
-
-			<div class="description short">
-				<p>Event ID</p>
-			</div>
-
-			<div class="description detailed hidden">
-				<p>Event ID</p>
-
-			</div>
+			</code>
 		</td>
-		<td class="value">
-			<div>
-				<a href="#$id" class="anchor">#</a>
-				<code></code>
-			</div>
-		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_get">#</a>
+		<code><a href="source-class-PHPCalendar.Token.html#11-81" title="Go to source code">get</a>( )</code>
+
+		<div class="description short">
+			<p>Get access token.
+If it does not exist, or if it is not found, then re-create it.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get access token.
+If it does not exist, or if it is not found, then re-create it.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>Token
+				</div>
+
+
+
+
+		</div>
+		</div></td>
 	</tr>
 	</table>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

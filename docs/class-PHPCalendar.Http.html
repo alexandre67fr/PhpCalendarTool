@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class PHPCalendar\Event</title>
+	<title>Class PHPCalendar\Http</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -38,10 +38,10 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-PHPCalendar.Calendar.html">Calendar</a></li>
-				<li class="active"><a href="class-PHPCalendar.Event.html">Event</a></li>
+				<li><a href="class-PHPCalendar.Event.html">Event</a></li>
 				<li><a href="class-PHPCalendar.GoogleOauth.html">GoogleOauth</a></li>
 				<li><a href="class-PHPCalendar.GoogleOauthService.html">GoogleOauthService</a></li>
-				<li><a href="class-PHPCalendar.Http.html">Http</a></li>
+				<li class="active"><a href="class-PHPCalendar.Http.html">Http</a></li>
 				<li><a href="class-PHPCalendar.Request.html">Request</a></li>
 				<li><a href="class-PHPCalendar.Token.html">Token</a></li>
 			</ul>
@@ -86,11 +86,11 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class Event</h1>
+	<h1>Class Http</h1>
 
 
 	<div class="description">
-	<p>Calendar Event Class</p>
+	<p>Send data with curl</p>
 	</div>
 
 
@@ -105,60 +105,72 @@
 		
 		
 		<b>Namespace:</b> <a href="namespace-PHPCalendar.html">PHPCalendar</a><br>
-		<b>Package:</b> PHPCalendarTool<br>
+		
 
-				<b>Used by:</b>
-				<code><a href="function-CreateCalendarEvent.html">CreateCalendarEvent()</a></code><br>
-				<b>Used by:</b>
-				<code><a href="function-GetEventList.html">GetEventList()</a></code><br>
-				<b>Used by:</b>
-				<code><a href="function-SetCalendarEvent.html">SetCalendarEvent()</a></code><br>
-			<b>Located at</b> <a href="source-class-PHPCalendar.Event.html#5-16" title="Go to source code">classes/Event.php</a>
+				<b>Copyright:</b>
+				<a href="https://github.com/wanze/Google-Analytics-API-PHP">https://github.com/wanze/Google-Analytics-API-PHP</a><br>
+				<b>Link:</b>
+				<a href="https://github.com/wanze/Google-Analytics-API-PHP/blob/master/GoogleAnalyticsAPI.class.php">https://github.com/wanze/Google-Analytics-API-PHP/blob/master/GoogleAnalyticsAPI.class.php</a><br>
+			<b>Located at</b> <a href="source-class-PHPCalendar.Http.html#5-40" title="Go to source code">classes/Http.php</a>
 		<br>
 	</div>
 
 
 
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="curl" id="_curl">
 
-
-
-
-
-
-
-
-
-
-
-
-	<table class="summary properties" id="properties">
-	<caption>Properties summary</caption>
-	<tr data-order="id" id="$id">
 		<td class="attributes"><code>
-			public  
+			 public static
+
 			
-		</code></td>
-
-		<td class="name">
-				<a href="source-class-PHPCalendar.Event.html#11-15" title="Go to source code"><var>$id</var></a>
-
-			<div class="description short">
-				<p>Event ID</p>
-			</div>
-
-			<div class="description detailed hidden">
-				<p>Event ID</p>
-
-			</div>
+			
+			</code>
 		</td>
-		<td class="value">
-			<div>
-				<a href="#$id" class="anchor">#</a>
-				<code></code>
-			</div>
-		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_curl">#</a>
+		<code><a href="source-class-PHPCalendar.Http.html#12-39" title="Go to source code">curl</a>( <span>mixed <var>$url</var></span>, <span>array <var>$params</var> = <span class="php-keyword1">array</span>()</span>, <span>boolean <var>$post</var> = <span class="php-keyword1">false</span></span> )</code>
+
+		<div class="description short">
+			<p>Send http requests with curl</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Send http requests with curl</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$url</var></dt>
+					<dd>The url to send data</dd>
+					<dt><var>$params</var></dt>
+					<dd>(default: array()) Array with key/value pairs to send</dd>
+					<dt><var>$post</var></dt>
+					<dd>(default: false) True when sending with POST</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
 	</tr>
 	</table>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

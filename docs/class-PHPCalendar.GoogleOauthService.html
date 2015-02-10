@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class PHPCalendar\GoogleOauthService</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li>
+					<a href="namespace-None.html">
+						None					</a>
+
+						</li>
+				<li class="active">
+					<a href="namespace-PHPCalendar.html">
+						PHPCalendar					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-PHPCalendar.Calendar.html">Calendar</a></li>
+				<li><a href="class-PHPCalendar.Event.html">Event</a></li>
+				<li><a href="class-PHPCalendar.GoogleOauth.html">GoogleOauth</a></li>
+				<li class="active"><a href="class-PHPCalendar.GoogleOauthService.html">GoogleOauthService</a></li>
+				<li><a href="class-PHPCalendar.Http.html">Http</a></li>
+				<li><a href="class-PHPCalendar.Request.html">Request</a></li>
+				<li><a href="class-PHPCalendar.Token.html">Token</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-PHPCalendar.Exception.html">Exception</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-PHPCalendar.html" title="Summary of PHPCalendar"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class GoogleOauthService</h1>
+
+
+	<div class="description">
+	<p>Oauth 2.0 for service applications requiring a private key
+openssl extension for PHP is required!</p>
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-PHPCalendar.GoogleOauth.html"><span>PHPCalendar\GoogleOauth</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b><span>PHPCalendar\GoogleOauthService</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-PHPCalendar.html">PHPCalendar</a><br>
+		
+
+				<b>Copyright:</b>
+				<a href="https://github.com/wanze/Google-Analytics-API-PHP">https://github.com/wanze/Google-Analytics-API-PHP</a><br>
+				<b>Link:</b>
+				<a href="https://github.com/wanze/Google-Analytics-API-PHP/blob/master/GoogleAnalyticsAPI.class.php">https://github.com/wanze/Google-Analytics-API-PHP/blob/master/GoogleAnalyticsAPI.class.php</a><br>
+				<b>Extends:</b>
+				GoogleOauth<br>
+			<b>Located at</b> <a href="source-class-PHPCalendar.GoogleOauthService.html#5-107" title="Go to source code">classes/GoogleOauthService.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-PHPCalendar.GoogleOauthService.html#21-34" title="Go to source code">__construct</a>( <span>string <var>$clientId</var> = <span class="php-quote">''</span></span>, <span>string <var>$email</var> = <span class="php-quote">''</span></span>, <span>mixed <var>$privateKey</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			<p>Constructor</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Constructor</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$clientId</var></dt>
+					<dd>(default: '') Client-ID of your project from the Google APIs console</dd>
+					<dt><var>$email</var></dt>
+					<dd>(default: '') E-Mail address of your project from the Google APIs console</dd>
+					<dt><var>$privateKey</var></dt>
+					<dd>(default: null) Path to your private key file (*.p12)</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setEmail" id="_setEmail">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setEmail">#</a>
+		<code><a href="source-class-PHPCalendar.GoogleOauthService.html#35-37" title="Go to source code">setEmail</a>( <span> <var>$email</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setPrivateKey" id="_setPrivateKey">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setPrivateKey">#</a>
+		<code><a href="source-class-PHPCalendar.GoogleOauthService.html#38-40" title="Go to source code">setPrivateKey</a>( <span> <var>$key</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getAccessToken" id="_getAccessToken">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getAccessToken">#</a>
+		<code><a href="source-class-PHPCalendar.GoogleOauthService.html#41-59" title="Go to source code">getAccessToken</a>( <span>mixed <var>$data</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			<p>Get the accessToken in exchange with the JWT</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get the accessToken in exchange with the JWT</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$data</var></dt>
+					<dd>(default: null) No data needed in this implementation</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					array<br>Array with keys: access_token, expires_in
+				</div>
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-PHPCalendar.GoogleOauth.html#_getAccessToken">PHPCalendar\GoogleOauth::getAccessToken()</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="generateSignedJWT" id="_generateSignedJWT">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_generateSignedJWT">#</a>
+		<code><a href="source-class-PHPCalendar.GoogleOauthService.html#60-106" title="Go to source code">generateSignedJWT</a>( )</code>
+
+		<div class="description short">
+			<p>Generate and sign a JWT request
+See: https://developers.google.com/accounts/docs/OAuth2ServiceAccount</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Generate and sign a JWT request
+See: https://developers.google.com/accounts/docs/OAuth2ServiceAccount</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-PHPCalendar.GoogleOauth.html#methods">PHPCalendar\GoogleOauth</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-PHPCalendar.GoogleOauth.html#___set">__set()</a>, 
+			<a href="class-PHPCalendar.GoogleOauth.html#_returnObjects">returnObjects()</a>, 
+			<a href="class-PHPCalendar.GoogleOauth.html#_setClientId">setClientId()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+	<table class="summary constants" id="constants">
+	<caption>Constants summary</caption>
+	<tr data-order="MAX_LIFETIME_SECONDS" id="MAX_LIFETIME_SECONDS">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-PHPCalendar.GoogleOauthService.html#15" title="Go to source code"><b>MAX_LIFETIME_SECONDS</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#MAX_LIFETIME_SECONDS" class="anchor">#</a>
+				<code><span class="php-num">3600</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="GRANT_TYPE" id="GRANT_TYPE">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-PHPCalendar.GoogleOauthService.html#16" title="Go to source code"><b>GRANT_TYPE</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#GRANT_TYPE" class="anchor">#</a>
+				<code><span class="php-quote">'urn:ietf:params:oauth:grant-type:jwt-bearer'</span></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Constants inherited from <a href="class-PHPCalendar.GoogleOauth.html#constants">PHPCalendar\GoogleOauth</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-PHPCalendar.GoogleOauth.html#SCOPE_URL"><b>SCOPE_URL</b></a>, 
+			<a href="class-PHPCalendar.GoogleOauth.html#TOKEN_URL"><b>TOKEN_URL</b></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="email" id="$email">
+		<td class="attributes"><code>
+			protected  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-PHPCalendar.GoogleOauthService.html#18" title="Go to source code"><var>$email</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$email" class="anchor">#</a>
+				<code><span class="php-quote">''</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="privateKey" id="$privateKey">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-PHPCalendar.GoogleOauthService.html#19" title="Go to source code"><var>$privateKey</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$privateKey" class="anchor">#</a>
+				<code><span class="php-keyword1">null</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="password" id="$password">
+		<td class="attributes"><code>
+			protected  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-PHPCalendar.GoogleOauthService.html#20" title="Go to source code"><var>$password</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$password" class="anchor">#</a>
+				<code><span class="php-quote">'notasecret'</span></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-PHPCalendar.GoogleOauth.html#properties">PHPCalendar\GoogleOauth</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-PHPCalendar.GoogleOauth.html#$assoc"><var>$assoc</var></a>, 
+			<a href="class-PHPCalendar.GoogleOauth.html#$clientId"><var>$clientId</var></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>
