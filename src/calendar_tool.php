@@ -33,6 +33,8 @@ define('PHPCALTOOL_SERVICE_ACCOUNT_NAME', '1079666599882-jj99t30kk5tgpns5lqqcqio
 
 /**
  * Google API: Path to certificate file
+ * It should be absolute, or relative to the executed file
+ * E.g.: __DIR__ . "/certificate.p12"
  * @global PHPCALTOOL_CLIENT_ID string Path to the certificate file
  */
 define('PHPCALTOOL_KEY_FILE_LOCATION', '../keys/certificate.p12');
