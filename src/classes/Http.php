@@ -20,6 +20,13 @@ class Http {
    */
   public static function curl($url, $params=array(), $post=false) {
     if (empty($url)) return false;
+
+    //print_r($params);
+
+    foreach ( $params as $key => $value )
+      if ( $value === NULL )
+        unset( $params[ $key ] );
+
     if (!$post && !empty($params)) {
       $url = $url . "?" . http_build_query($params);
     }
@@ -35,6 +42,10 @@ class Http {
     // Add the status code to the json data, useful for error-checking
     $data = preg_replace('/^{/', '{"http_code":'.$http_code.',', $data);
     curl_close($curl);
+
+    if ( $http_code != 200 )
+      throw new Exception("HTTP response code is $http_code for request to URL $url");
+
     return $data;
   }
 }

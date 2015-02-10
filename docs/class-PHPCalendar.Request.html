@@ -38,11 +38,16 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-PHPCalendar.Calendar.html">Calendar</a></li>
+				<li><a href="class-PHPCalendar.CalendarList.html">CalendarList</a></li>
+				<li><a href="class-PHPCalendar.DateTime.html">DateTime</a></li>
 				<li><a href="class-PHPCalendar.Event.html">Event</a></li>
+				<li><a href="class-PHPCalendar.EventList.html">EventList</a></li>
 				<li><a href="class-PHPCalendar.GoogleOauth.html">GoogleOauth</a></li>
 				<li><a href="class-PHPCalendar.GoogleOauthService.html">GoogleOauthService</a></li>
 				<li><a href="class-PHPCalendar.Http.html">Http</a></li>
 				<li class="active"><a href="class-PHPCalendar.Request.html">Request</a></li>
+				<li><a href="class-PHPCalendar.Resource.html">Resource</a></li>
+				<li><a href="class-PHPCalendar.ResourceList.html">ResourceList</a></li>
 				<li><a href="class-PHPCalendar.Token.html">Token</a></li>
 			</ul>
 
@@ -107,7 +112,7 @@
 		<b>Namespace:</b> <a href="namespace-PHPCalendar.html">PHPCalendar</a><br>
 		<b>Package:</b> PHPCalendarTool<br>
 
-			<b>Located at</b> <a href="source-class-PHPCalendar.Request.html#5-23" title="Go to source code">classes/Request.php</a>
+			<b>Located at</b> <a href="source-class-PHPCalendar.Request.html#5-50" title="Go to source code">classes/Request.php</a>
 		<br>
 	</div>
 
@@ -127,7 +132,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_perform">#</a>
-		<code><a href="source-class-PHPCalendar.Request.html#12-21" title="Go to source code">perform</a>( )</code>
+		<code><a href="source-class-PHPCalendar.Request.html#36-48" title="Go to source code">perform</a>( )</code>
 
 		<div class="description short">
 			<p>Perform the request</p>
@@ -158,10 +163,131 @@
 
 
 
+	<table class="summary constants" id="constants">
+	<caption>Constants summary</caption>
+	<tr data-order="ENDPOINT" id="ENDPOINT">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-PHPCalendar.Request.html#12-16" title="Go to source code"><b>ENDPOINT</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Endpoint to Google Calendar v3 API</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Endpoint to Google Calendar v3 API</p>
+
+					<h4>Const</h4>
+					<div class="list">
+							ENDPOINT string<br>
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#ENDPOINT" class="anchor">#</a>
+				<code><span class="php-quote">&quot;https://www.googleapis.com/calendar/v3/&quot;</span></code>
+			</div>
+		</td>
+	</tr>
+	</table>
 
 
 
 
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="type" id="$type">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-PHPCalendar.Request.html#18-22" title="Go to source code"><var>$type</var></a>
+
+			<div class="description short">
+				<p>Type of request</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Type of request</p>
+
+					<h4>Param</h4>
+					<div class="list">
+							$type string<br>
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$type" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="data" id="$data">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-PHPCalendar.Request.html#24-28" title="Go to source code"><var>$data</var></a>
+
+			<div class="description short">
+				<p>Request data</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Request data</p>
+
+					<h4>Param</h4>
+					<div class="list">
+							$data array<br>
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$data" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="url" id="$url">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-PHPCalendar.Request.html#30-34" title="Go to source code"><var>$url</var></a>
+
+			<div class="description short">
+				<p>URL of request</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>URL of request</p>
+
+					<h4>Param</h4>
+					<div class="list">
+							$url string<br>
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$url" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	</table>
 
 
 

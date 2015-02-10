@@ -12,6 +12,9 @@ abstract class Token
    * Get access token.
    * If it does not exist, or if it is not found, then re-create it.
    *
+   * TODO: refresh token
+   * TODO: check old token validity
+   *
    * @return string Token
    */
   public static function get()
@@ -67,9 +70,6 @@ abstract class Token
     $auth->setPrivateKey( PHPCALTOOL_KEY_FILE_LOCATION );
 
     $token = $auth->getAccessToken();
-
-    if ( $token['http_code'] != 200 )
-      throw new Exception("Google returned error code " . $token['http_code'] . " while trying to get an access token.");
 
     $token['created_at'] = time();
     $data = serialize( $token );

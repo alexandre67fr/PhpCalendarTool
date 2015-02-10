@@ -10,6 +10,30 @@ class Request
 {
 
   /**
+   * Endpoint to Google Calendar v3 API
+   * @const ENDPOINT string
+   */
+  const ENDPOINT = "https://www.googleapis.com/calendar/v3/";
+
+  /**
+   * Type of request
+   * @param $type string
+   */
+  public $type;
+
+  /**
+   * Request data
+   * @param $data array
+   */
+  public $data;
+
+  /**
+   * URL of request
+   * @param $url string
+   */
+  public $url;
+
+  /**
    * Perform the request
    *
    * @return object Request response
@@ -17,7 +41,10 @@ class Request
   public function perform()
   {
     $token = Token::get();
-    echo file_get_contents("https://www.googleapis.com/calendar/v3/users/me/calendarList?access_token=$token");
+    $url = self::ENDPOINT . $this->url;
+    $this->data['access_token'] = $token;
+    $data = Http::curl( $url, $this->data, false );
+    return json_decode( $data );
   }
 
 }

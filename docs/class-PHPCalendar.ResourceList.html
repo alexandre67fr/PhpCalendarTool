@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class PHPCalendar\Token</title>
+	<title>Class PHPCalendar\ResourceList</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -47,8 +47,8 @@
 				<li><a href="class-PHPCalendar.Http.html">Http</a></li>
 				<li><a href="class-PHPCalendar.Request.html">Request</a></li>
 				<li><a href="class-PHPCalendar.Resource.html">Resource</a></li>
-				<li><a href="class-PHPCalendar.ResourceList.html">ResourceList</a></li>
-				<li class="active"><a href="class-PHPCalendar.Token.html">Token</a></li>
+				<li class="active"><a href="class-PHPCalendar.ResourceList.html">ResourceList</a></li>
+				<li><a href="class-PHPCalendar.Token.html">Token</a></li>
 			</ul>
 
 			<h3>Interfaces</h3>
@@ -91,15 +91,34 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class Token</h1>
+	<h1>Class ResourceList</h1>
 
 
 	<div class="description">
-	<p>Abstract Class to get access token</p>
+	<p>Google Calendar API v3 Resource List Class</p>
 	</div>
 
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-PHPCalendar.Resource.html"><span>PHPCalendar\Resource</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b><span>PHPCalendar\ResourceList</span></b>			
+			
+			
+		</dd>
+	</dl>
 
 
+	<div>
+		<h4>Direct known subclasses</h4>
+			<a href="class-PHPCalendar.CalendarList.html">PHPCalendar\CalendarList</a>, 
+			<a href="class-PHPCalendar.EventList.html">PHPCalendar\EventList</a>
+	</div>
 
 
 
@@ -112,7 +131,9 @@
 		<b>Namespace:</b> <a href="namespace-PHPCalendar.html">PHPCalendar</a><br>
 		<b>Package:</b> PHPCalendarTool<br>
 
-			<b>Located at</b> <a href="source-class-PHPCalendar.Token.html#5-83" title="Go to source code">classes/Token.php</a>
+				<b>Extends:</b>
+				Resource<br>
+			<b>Located at</b> <a href="source-class-PHPCalendar.ResourceList.html#5-71" title="Go to source code">classes/ResourceList.php</a>
 		<br>
 	</div>
 
@@ -120,38 +141,68 @@
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="get" id="_get">
+	<tr data-order="getList" id="_getList">
 
 		<td class="attributes"><code>
-			 public static
+			 public 
 
-			string
+			array
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_get">#</a>
-		<code><a href="source-class-PHPCalendar.Token.html#11-81" title="Go to source code">get</a>( )</code>
+		<a class="anchor" href="#_getList">#</a>
+		<code><a href="source-class-PHPCalendar.ResourceList.html#24-59" title="Go to source code">getList</a>( <span>array <var>$filter</var> = <span class="php-keyword1">array</span>() </span> )</code>
 
 		<div class="description short">
-			<p>Get access token.
-If it does not exist, or if it is not found, then re-create it.</p>
+			<p>Return list of resources</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Get access token.
-If it does not exist, or if it is not found, then re-create it.</p>
-
-<p>TODO: refresh token
-TODO: check old token validity</p>
+			<p>Return list of resources</p>
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$filter</var></dt>
+					<dd>Filter options</dd>
+				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					string<br>Token
+					array<br>List of resources
 				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getAll" id="_getAll">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getAll">#</a>
+		<code><a href="source-class-PHPCalendar.ResourceList.html#61-69" title="Go to source code">getAll</a>( )</code>
+
+		<div class="description short">
+			<p>Just a shorter alias to <a href="ResourceList::getList()">ResourceList::getList()</a></p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Just a shorter alias to <a href="ResourceList::getList()">ResourceList::getList()</a></p>
+
+
+
 
 
 
@@ -161,6 +212,21 @@ TODO: check old token validity</p>
 	</tr>
 	</table>
 
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-PHPCalendar.Resource.html#methods">PHPCalendar\Resource</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-PHPCalendar.Resource.html#___construct">__construct()</a>, 
+			<a href="class-PHPCalendar.Resource.html#___get">__get()</a>, 
+			<a href="class-PHPCalendar.Resource.html#___set">__set()</a>, 
+			<a href="class-PHPCalendar.Resource.html#_all">all()</a>, 
+			<a href="class-PHPCalendar.Resource.html#_endpoint">endpoint()</a>, 
+			<a href="class-PHPCalendar.Resource.html#_find">find()</a>, 
+			<a href="class-PHPCalendar.Resource.html#_get">get()</a>, 
+			<a href="class-PHPCalendar.Resource.html#_set">set()</a>
+		</code></td>
+	</tr>
+	</table>
 
 
 

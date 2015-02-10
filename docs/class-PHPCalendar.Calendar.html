@@ -38,11 +38,16 @@
 			<h3>Classes</h3>
 			<ul>
 				<li class="active"><a href="class-PHPCalendar.Calendar.html">Calendar</a></li>
+				<li><a href="class-PHPCalendar.CalendarList.html">CalendarList</a></li>
+				<li><a href="class-PHPCalendar.DateTime.html">DateTime</a></li>
 				<li><a href="class-PHPCalendar.Event.html">Event</a></li>
+				<li><a href="class-PHPCalendar.EventList.html">EventList</a></li>
 				<li><a href="class-PHPCalendar.GoogleOauth.html">GoogleOauth</a></li>
 				<li><a href="class-PHPCalendar.GoogleOauthService.html">GoogleOauthService</a></li>
 				<li><a href="class-PHPCalendar.Http.html">Http</a></li>
 				<li><a href="class-PHPCalendar.Request.html">Request</a></li>
+				<li><a href="class-PHPCalendar.Resource.html">Resource</a></li>
+				<li><a href="class-PHPCalendar.ResourceList.html">ResourceList</a></li>
 				<li><a href="class-PHPCalendar.Token.html">Token</a></li>
 			</ul>
 
@@ -93,6 +98,20 @@
 	<p>Calendar Event Class</p>
 	</div>
 
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-PHPCalendar.Resource.html"><span>PHPCalendar\Resource</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b><span>PHPCalendar\Calendar</span></b>			
+			
+			
+		</dd>
+	</dl>
 
 
 
@@ -113,7 +132,9 @@
 				<code><a href="function-GetEventList.html">GetEventList()</a></code><br>
 				<b>Used by:</b>
 				<code><a href="function-SetCalendarEvent.html">SetCalendarEvent()</a></code><br>
-			<b>Located at</b> <a href="source-class-PHPCalendar.Calendar.html#5-25" title="Go to source code">classes/Calendar.php</a>
+				<b>Extends:</b>
+				Resource<br>
+			<b>Located at</b> <a href="source-class-PHPCalendar.Calendar.html#5-44" title="Go to source code">classes/Calendar.php</a>
 		<br>
 	</div>
 
@@ -121,32 +142,37 @@
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="all" id="_all">
+	<tr data-order="events" id="_events">
 
 		<td class="attributes"><code>
-			 public static
+			 public 
 
-			<code><a href="class-PHPCalendar.Calendar.html">PHPCalendar\Calendar</a>[]</code>
+			<code><a href="class-PHPCalendar.Event.html">PHPCalendar\Event</a>[]</code>
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_all">#</a>
-		<code><a href="source-class-PHPCalendar.Calendar.html#17-24" title="Go to source code">all</a>( )</code>
+		<a class="anchor" href="#_events">#</a>
+		<code><a href="source-class-PHPCalendar.Calendar.html#13-25" title="Go to source code">events</a>( <span>array <var>$filter</var> = <span class="php-keyword1">array</span>() </span> )</code>
 
 		<div class="description short">
-			<p>Get all available calendars</p>
+			<p>Get events of this calendar</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Get all available calendars</p>
+			<p>Get events of this calendar</p>
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$filter</var></dt>
+					<dd>Filter options of the event</dd>
+				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code><a href="class-PHPCalendar.Calendar.html">PHPCalendar\Calendar</a>[]</code>
+					<code><a href="class-PHPCalendar.Event.html">PHPCalendar\Event</a>[]</code>
 				</div>
 
 
@@ -155,47 +181,108 @@
 		</div>
 		</div></td>
 	</tr>
-	</table>
+	<tr data-order="event" id="_event">
 
-
-
-
-
-
-
-
-
-
-
-
-	<table class="summary properties" id="properties">
-	<caption>Properties summary</caption>
-	<tr data-order="id" id="$id">
 		<td class="attributes"><code>
-			public  
+			 public 
+
+			<code><a href="class-PHPCalendar.Event.html">PHPCalendar\Event</a></code>
 			
-		</code></td>
-
-		<td class="name">
-				<a href="source-class-PHPCalendar.Calendar.html#11-15" title="Go to source code"><var>$id</var></a>
-
-			<div class="description short">
-				<p>Event ID</p>
-			</div>
-
-			<div class="description detailed hidden">
-				<p>Event ID</p>
-
-			</div>
+			</code>
 		</td>
-		<td class="value">
-			<div>
-				<a href="#$id" class="anchor">#</a>
-				<code></code>
-			</div>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_event">#</a>
+		<code><a href="source-class-PHPCalendar.Calendar.html#27-38" title="Go to source code">event</a>( <span> <var>$id</var></span> )</code>
+
+		<div class="description short">
+			<p>Get event of this calendar</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get event of this calendar</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$id</var></dt>
+					<dd>Event ID or event object</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-PHPCalendar.Event.html">PHPCalendar\Event</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="endpoint" id="_endpoint">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
 		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_endpoint">#</a>
+		<code><a href="source-class-PHPCalendar.Calendar.html#40-43" title="Go to source code">endpoint</a>( )</code>
+
+		<div class="description short">
+			<p>Endpoint to get the list</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Endpoint to get the list</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-PHPCalendar.Resource.html#_endpoint">PHPCalendar\Resource::endpoint()</a></code></div>
+
+		</div>
+		</div></td>
 	</tr>
 	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-PHPCalendar.Resource.html#methods">PHPCalendar\Resource</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-PHPCalendar.Resource.html#___construct">__construct()</a>, 
+			<a href="class-PHPCalendar.Resource.html#___get">__get()</a>, 
+			<a href="class-PHPCalendar.Resource.html#___set">__set()</a>, 
+			<a href="class-PHPCalendar.Resource.html#_all">all()</a>, 
+			<a href="class-PHPCalendar.Resource.html#_find">find()</a>, 
+			<a href="class-PHPCalendar.Resource.html#_get">get()</a>, 
+			<a href="class-PHPCalendar.Resource.html#_set">set()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
 
 
 
