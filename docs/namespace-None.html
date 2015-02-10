@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Overview</title>
+	<title>No namespace</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -12,12 +12,13 @@
 <body>
 <div id="left">
 	<div id="menu">
-<span>Overview</span>
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
 
 		<div id="groups">
 				<h3>Namespaces</h3>
 			<ul>
-				<li>
+				<li class="active">
 					<a href="namespace-None.html">
 						None					</a>
 
@@ -34,15 +35,15 @@
 
 
 		<div id="elements">
-			<h3>Classes</h3>
+
+
+
+
+
+			<h3>Functions</h3>
 			<ul>
-				<li class="active"><a href="class-PHPCalendar.Event.html">PHPCalendar\Event</a></li>
+				<li class="active"><a href="function-GetEventList.html">GetEventList</a></li>
 			</ul>
-
-
-
-
-
 		</div>
 	</div>
 </div>
@@ -54,14 +55,15 @@
 	<form id="search">
 		<input type="hidden" name="cx" value="">
 		<input type="hidden" name="ie" value="UTF-8">
-		<input type="text" name="q" class="text" placeholder="Search" autofocus>
+		<input type="text" name="q" class="text" placeholder="Search">
 	</form>
 
 	<div id="navigation">
 		<ul>
-			<li class="active">
-<span>Overview</span>			</li>
 			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li class="active">
 <span>Namespace</span>			</li>
 			<li>
 				<a href="function-GetEventList.html" title="Summary of GetEventList"><span>Function</span></a>
@@ -73,21 +75,23 @@
 		</ul>
 	</div>
 
-<div id="content">
-	<h1>Overview</h1>
+<div id="content" class="namespace">
+	<h1>No namespace</h1>
 
 
-	<table class="summary" id="namespaces">
-		<caption>Namespaces summary</caption>
-			<tr>
-				<td class="name"><a href="namespace-None.html">None</a></td>
-			</tr>
-			<tr>
-				<td class="name"><a href="namespace-PHPCalendar.html">PHPCalendar</a></td>
-			</tr>
-	</table>
 
 
+
+
+
+
+<table class="summary" id="functions">
+<caption>Functions summary</caption>
+<tr>
+	<td class="name"><a href="function-GetEventList.html">GetEventList</a></td>
+	<td>Gets the list of all events in all calendars, except deleted and events without both start and end datetime</td>
+</tr>
+</table>
 </div>
 
 	<div id="footer">

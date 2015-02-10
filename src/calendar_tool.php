@@ -20,32 +20,29 @@
  */
 
 /**
- * Client ID
+ * Google API: Client ID
  * @global PHPCALTOOL_CLIENT_ID string
  */
 define('PHPCALTOOL_CLIENT_ID', '1079666599882-jj99t30kk5tgpns5lqqcqioap4k22oho.apps.googleusercontent.com');
 
 /**
- * Service account name
+ * Google API: Service account name
  * @global PHPCALTOOL_SERVICE_ACCOUNT_NAME string
  */
 define('PHPCALTOOL_SERVICE_ACCOUNT_NAME', '1079666599882-jj99t30kk5tgpns5lqqcqioap4k22oho@developer.gserviceaccount.com');
 
 /**
- * Path to certificate file
+ * Google API: Path to certificate file
  * @global PHPCALTOOL_CLIENT_ID string Path to the certificate file
  */
 define('PHPCALTOOL_KEY_FILE_LOCATION', '../keys/certificate.p12');
 
-/**
- * Calendar Event Class 
- */
-class PHPCalendarEvent
-{
-}
 
 /**
  * Gets the list of all events in all calendars, except deleted and events without both start and end datetime
+ *
+ * @uses PHPCalendar\Event
+ * @link https://developers.google.com/google-apps/calendar/v3/reference/events/list Events:List method on Google Calendar API v3 Reference
  *
  * @param string|int $ts_oldest Date time or timestamp of the oldest returned event
  * @param string|int $ts_newest Date time or timestamp of the newest returned event
