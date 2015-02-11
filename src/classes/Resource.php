@@ -13,10 +13,31 @@ abstract class Resource
    * Contains data of the resource
    * @var $data
    */
-  private $data; 
+  public $data = array(); 
+
+  /**
+   * Contains changed properties data of the resource.
+   * Used to provide information what data should be updated
+   * @var $changed_properties
+   */
+  private $changed_properties = array(); 
+
+  /**
+   * Required parmeters that need to be submitted upon update request
+   * @var $required_parameters
+   */
+  public $required_parameters = array(
+    'PUT'  => array(),
+    'POST' => array(),
+  );
 
   public function __set($key, $value)
   {
+    // Store field name
+    // We will need it later if we submit changes to Google Calendar
+    $this->changed_properties[] = $key;
+    $this->changed_properties = array_unique( $this->changed_properties );
+    // Set the value
     $this->data[ $key ] = $value;
   }
 
@@ -59,10 +80,10 @@ abstract class Resource
    *
    * @return mixed Data from Google API
    */
-  private function request( $options = array() )
+  private function request( $options = array(), $type = 'GET' )
   {
     $request = new Request();
-    $request->type = "GET";
+    $request->type = $type;
     $request->data = $options;
     $request->url = $this->endpoint();
     if ( $this->id )
@@ -94,6 +115,23 @@ abstract class Resource
     $request = $this->request( $options );
     $this->set( $request );
     return $request;
+  }
+
+  /**
+   * Save data
+   */
+  public function save()
+  {
+    $type = ( $this->id ? 'PUT' : 'POST' );
+    $options = array();
+    $properties = $this->changed_properties;
+    $properties = array_merge( $properties, $this->required_parameters[$type] );
+    //print_r( $properties ); exit;
+    foreach ( $properties as $key )
+      $options[$key] = $this->data[ $key ];
+    $request = $this->request( $options, $type );
+    $this->get();
+    //print_r( $request );
   }
 
   /**

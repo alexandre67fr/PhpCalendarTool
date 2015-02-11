@@ -18,8 +18,11 @@ class Http {
    * @param array $params (default: array()) Array with key/value pairs to send
    * @param bool $post (default: false) True when sending with POST
    */
-  public static function curl($url, $params=array(), $post=false) {
+  public static function curl($url, $params=array(), $type='GET') {
     if (empty($url)) return false;
+
+    $post = ( $type != 'GET' ); 
+    $token = false;
 
     //print_r($params);
 
@@ -27,16 +30,35 @@ class Http {
       if ( $value === NULL )
         unset( $params[ $key ] );
 
-    if (!$post && !empty($params)) {
+    if (!$post && !empty($params)) 
       $url = $url . "?" . http_build_query($params);
+    elseif ( $params['access_token'] )
+    {
+      $token = $params['access_token'];
+      $url = $url . "?" . http_build_query(array( 'access_token' => $token ));
+      unset( $params['access_token'] );
     }
     $curl = curl_init($url);
-    if ($post) {
-      curl_setopt($curl, CURLOPT_POST, true);
-      curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
+
+    curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $type);
+
+    if ( $post )
+    {
+      if ( $token )
+      {
+        $data = json_encode($params);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json','Content-Length: ' . strlen($data)));
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+      }
+      else
+      {
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
+      }
     }
+
     curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    //curl_setopt($curl, CURLOPT_VERBOSE, true);
     $data = curl_exec($curl);
     $http_code = (int) curl_getinfo($curl, CURLINFO_HTTP_CODE);
     // Add the status code to the json data, useful for error-checking
@@ -44,7 +66,7 @@ class Http {
     curl_close($curl);
 
     if ( $http_code != 200 )
-      throw new Exception("HTTP response code is $http_code for request to URL $url");
+      throw new Exception("HTTP response code is $http_code for request to URL $url. The returned data is $data");
 
     return $data;
   }

@@ -19,7 +19,14 @@ abstract class Token
    */
   public static function get()
   {
-    $tmp_file = PHPCALTOOL_TMP_FILE;
+    global $service_account_name, $client_id, $key_file_location;
+
+    $tmp_file = sys_get_temp_dir() . '/access-token-' . md5( 
+        $service_account_name . 
+        $client_id . 
+        $key_file_location 
+      )
+    ;
 
     try
     {
@@ -57,17 +64,17 @@ abstract class Token
     // Something went wrong
     // We need to generate a new token
 
-    if ( ! file_exists( PHPCALTOOL_KEY_FILE_LOCATION ) )
-      throw new Exception( PHPCALTOOL_KEY_FILE_LOCATION . " file was not found." );
+    if ( ! file_exists( $key_file_location ) )
+      throw new Exception( $key_file_location . " file was not found." );
 
-    if ( ! @file_get_contents( PHPCALTOOL_KEY_FILE_LOCATION ) )
-      throw new Exception( PHPCALTOOL_KEY_FILE_LOCATION . " file is not readable." );
+    if ( ! @file_get_contents( $key_file_location ) )
+      throw new Exception( $key_file_location . " file is not readable." );
 
     // Set up Authorization service
     $auth = new GoogleOauthService();
-    $auth->setClientId( PHPCALTOOL_CLIENT_ID );
-    $auth->setEmail( PHPCALTOOL_SERVICE_ACCOUNT_NAME );
-    $auth->setPrivateKey( PHPCALTOOL_KEY_FILE_LOCATION );
+    $auth->setClientId( $client_id );
+    $auth->setEmail( $service_account_name );
+    $auth->setPrivateKey( $key_file_location );
 
     $token = $auth->getAccessToken();
 

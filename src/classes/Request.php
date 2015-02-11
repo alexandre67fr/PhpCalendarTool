@@ -19,7 +19,7 @@ class Request
    * Type of request
    * @param $type string
    */
-  public $type;
+  public $type = "GET";
 
   /**
    * Request data
@@ -43,7 +43,7 @@ class Request
     $token = Token::get();
     $url = self::ENDPOINT . $this->url;
     $this->data['access_token'] = $token;
-    $data = Http::curl( $url, $this->data, false );
+    $data = Http::curl( $url, $this->data, $this->type );
     return json_decode( $data );
   }
 

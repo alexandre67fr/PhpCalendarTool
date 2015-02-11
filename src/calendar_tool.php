@@ -30,16 +30,16 @@
 /**
  * Google API: Client ID
  *
- * @global PHPCALTOOL_CLIENT_ID string
+ * @global $client_id string
  */
-define('PHPCALTOOL_CLIENT_ID', '1079666599882-jj99t30kk5tgpns5lqqcqioap4k22oho.apps.googleusercontent.com');
+$client_id = '1079666599882-jj99t30kk5tgpns5lqqcqioap4k22oho.apps.googleusercontent.com';
 
 /**
  * Google API: Service account name
  *
- * @global PHPCALTOOL_SERVICE_ACCOUNT_NAME string
+ * @global $service_account_name string
  */
-define('PHPCALTOOL_SERVICE_ACCOUNT_NAME', '1079666599882-jj99t30kk5tgpns5lqqcqioap4k22oho@developer.gserviceaccount.com');
+$service_account_name = '1079666599882-jj99t30kk5tgpns5lqqcqioap4k22oho@developer.gserviceaccount.com';
 
 /**
  * Google API: Path to certificate file
@@ -47,28 +47,20 @@ define('PHPCALTOOL_SERVICE_ACCOUNT_NAME', '1079666599882-jj99t30kk5tgpns5lqqcqio
  * It should be absolute, or relative to the executed file
  * E.g.: __DIR__ . "/certificate.p12"
  *
- * @global PHPCALTOOL_CLIENT_ID string
+ * @global $key_file_location string
  * Path to the certificate file
  */
-define('PHPCALTOOL_KEY_FILE_LOCATION', __DIR__ . '/../keys/certificate.p12');
+global $key_file_location;
+$key_file_location =  __DIR__ . '/../keys/certificate.p12';
 
 
 /**
- * Temporary file where recent access token is saved
+ * Defines if we should throw exceptions or not
  *
- * @global PHPCALTOOL_TMP_FILE string
- * Path to the temporary file
- *
- * Default: MD5 hash of auth settings in the temporary folder
+ * @global $throw_exceptions
  */
-define(
-  'PHPCALTOOL_TMP_FILE', 
-  sys_get_temp_dir() . '/access-token-' . md5( 
-    PHPCALTOOL_SERVICE_ACCOUNT_NAME . 
-    PHPCALTOOL_CLIENT_ID . 
-    PHPCALTOOL_KEY_FILE_LOCATION 
-  )
-);
+global $throw_exceptions;
+$throw_exceptions = TRUE;
 
 /**
  * Autoload classes
@@ -142,67 +134,78 @@ spl_autoload_register('phpcalendar_autoloader');
  */
 function GetEventList($start_datetime=NULL, $end_datetime=NULL, $calendars=NULL)
 {
-  $events = array();
-
-  // If the end date is just a date (no time),
-  // then set end date to 1 second before mightnight.
-  // Or else, events from that particular date will not be displayed
-  if ( preg_match('/^\d{4}-\d{2}-\d{2}$/', $end_datetime) )
-    $end_datetime .= ' 23:59:59';
-
-  $start_datetime = PHPCalendar\DateTime::timestamp( $start_datetime );
-  $end_datetime   = PHPCalendar\DateTime::timestamp( $end_datetime );
-
-  // Start and End date for Google are exclusive
-  // So we need to correct them
-  // @link https://developers.google.com/google-apps/calendar/v3/reference/events/list#timeMax
-  $start_datetime -= 1;
-  $end_datetime += 1;
-
-  if ( ! $calendars )
-    $calendars = PHPCalendar\Calendar::all();
-  else
+  try 
   {
-    // Something was supplied
-    // Convert it to an array if it is not already
-    if ( ! is_array( $calendars ) )
-      $calendars = array( $calendars );
+    $events = array();
+
+    // If the end date is just a date (no time),
+    // then set end date to 1 second before mightnight.
+    // Or else, events from that particular date will not be displayed
+    if ( preg_match('/^\d{4}-\d{2}-\d{2}$/', $end_datetime) )
+      $end_datetime .= ' 23:59:59';
+
+    $start_datetime = PHPCalendar\DateTime::timestamp( $start_datetime );
+    $end_datetime   = PHPCalendar\DateTime::timestamp( $end_datetime );
+
+    // Start and End date for Google are exclusive
+    // So we need to correct them
+    // @link https://developers.google.com/google-apps/calendar/v3/reference/events/list#timeMax
+    $start_datetime -= 1;
+    $end_datetime += 1;
+
+    if ( ! $calendars )
+      $calendars = PHPCalendar\Calendar::all();
+    else
+    {
+      // Something was supplied
+      // Convert it to an array if it is not already
+      if ( ! is_array( $calendars ) )
+        $calendars = array( $calendars );
+      
+      // Convert calendar IDs to calendar Objects is they are not
+      foreach ( $calendars as $key => $calendar )
+        $calendars[ $key ] = PHPCalendar\Calendar::find( $calendar );
+
+    }
+
+    // Now we have the list of calendars
+    // Let's get the list of events of each calendar
+    foreach ( $calendars as $calendar )
+    {
+
+      $fetched_events = $calendar->events(array(
+        // Since we have only timestamps, we need to format them
+        // @link https://developers.google.com/google-apps/calendar/concepts#timed_events
+        'timeMin' => PHPCalendar\DateTime::date3339( $start_datetime ),
+        'timeMax' => PHPCalendar\DateTime::date3339( $end_datetime ),
+      ));
+      $events = array_merge( $events, $fetched_events );
+
+    }
+
+    // timeMax parameter is not the same as $end_datetime
+    // We need to remove events that start after $end_datetime or before $start_datetime
+    foreach ( $events as $key => $event )
+    {
+      if ( $start_datetime )
+        if ( $event->start <= $start_datetime )
+          unset( $events[ $key ] );
+
+      if ( $end_datetime )
+        if ( $event->start >= $end_datetime )
+          unset( $events[ $key ] );
+    }
     
-    // Convert calendar IDs to calendar Objects is they are not
-    foreach ( $calendars as $key => $calendar )
-      $calendars[ $key ] = PHPCalendar\Calendar::find( $calendar );
+    return array_values( $events );
 
   }
-
-  // Now we have the list of calendars
-  // Let's get the list of events of each calendar
-  foreach ( $calendars as $calendar )
+  catch (Exception $e)
   {
-
-    $fetched_events = $calendar->events(array(
-      // Since we have only timestamps, we need to format them
-      // @link https://developers.google.com/google-apps/calendar/concepts#timed_events
-      'timeMin' => PHPCalendar\DateTime::date3339( $start_datetime ),
-      'timeMax' => PHPCalendar\DateTime::date3339( $end_datetime ),
-    ));
-    $events = array_merge( $events, $fetched_events );
-
+    global $throw_exceptions;
+    if ( $throw_exceptions )
+      throw $e;
+    return array();
   }
-
-  // timeMax parameter is not the same as $end_datetime
-  // We need to remove events that start after $end_datetime or before $start_datetime
-  foreach ( $events as $key => $event )
-  {
-    if ( $start_datetime )
-      if ( $event->start() <= $start_datetime )
-        unset( $events[ $key ] );
-
-    if ( $end_datetime )
-      if ( $event->start() >= $end_datetime )
-        unset( $events[ $key ] );
-  }
-  
-  return array_values( $events );
 }
 
 /**
@@ -219,15 +222,15 @@ function GetEventList($start_datetime=NULL, $end_datetime=NULL, $calendars=NULL)
  * @param PHPCalendar\Event|string $event            
  * Event which is being updated. Object or event ID.
  * @param string $heading          
- * Title of the event.
+ * Title of the event. Optional.
  * @param string $location         
- * Location of the event.
+ * Location of the event. Optional.
  * @param string $description      
- * Description of the event.
+ * Description of the event. Optional.
  * @param datetime|timestamp $start_datetime   
- * Date time or timestamp when the event starts.
+ * Date time or timestamp when the event starts. Optional. Submit in format 'YYYY-mm-ddd' for all-day event.
  * @param datetime|timestamp $end_datetime     
- * Date time or timestamp when the event ends.
+ * Date time or timestamp when the event ends. Optional. Submit in format 'YYYY-mm-ddd' for all-day event.
  *
  * @return boolean TRUE on success, FALSE on failure.
  *
@@ -242,13 +245,30 @@ function SetCalendarEvent(
   $end_datetime=NULL
 ) {
 
-  $calendar = PHPCalendar\Calendar::find( $calendar );
-  $event    = $calendar->event( $event );
+  try 
+  {
 
-  print_r($event);
+    $calendar = PHPCalendar\Calendar::find( $calendar );
+    $event    = $calendar->event( $event );
 
-  $event->save();
+    $event->summary = $heading;
+    $event->location = $location;
+    $event->description = $description;
+    $event->start = $start_datetime;
+    $event->end   = $end_datetime;
 
+    $event->save();
+
+    return TRUE;
+
+  }
+  catch (Exception $e)
+  {
+    global $throw_exceptions;
+    if ( $throw_exceptions )
+      throw $e;
+    return FALSE;
+  }
 }
 
 /**
@@ -261,15 +281,15 @@ function SetCalendarEvent(
  * @param PHPCalendar\Calendar|string $calendar         
  * Calendar where the event is being created. Can be an object or calendar ID.
  * @param string $heading          
- * Title of the event. 
+ * Title of the event. Optional.
  * @param string $location         
- * Location of the event.
+ * Location of the event. Optional.
  * @param string $description      
- * Description of the event.
+ * Description of the event. Optional.
  * @param datetime|timestamp $start_datetime   
- * Date time or timestamp when the event starts.
+ * Date time or timestamp when the event starts. Optional.
  * @param datetime|timestamp $end_datetime     
- * Date time or timestamp when the event ends.
+ * Date time or timestamp when the event ends. Optional.
  *
  * @return boolean TRUE on success, FALSE on failure.
  *
@@ -282,5 +302,29 @@ function CreateCalendarEvent(
   $start_datetime=NULL, 
   $end_datetime=NULL
 ) {
-  
+
+  try
+  {
+
+    $calendar = PHPCalendar\Calendar::find( $calendar );
+    $event    = new PHPCalendar\Event( NULL, $calendar );
+
+    $event->summary = $heading;
+    $event->location = $location;
+    $event->description = $description;
+    $event->start = ( $start_datetime ? $start_datetime : date('Y-m-d') );
+    $event->end   = ( $end_datetime   ? $end_datetime   : $event->start );
+
+    $event->save();
+
+    return TRUE;
+
+  }
+  catch (Exception $e)
+  {
+    global $throw_exceptions;
+    if ( $throw_exceptions )
+      throw $e;
+    return FALSE;
+  }
 }

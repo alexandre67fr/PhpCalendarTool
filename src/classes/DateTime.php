@@ -17,6 +17,8 @@ abstract class DateTime
   {
     if ( ! $string )
       return NULL;
+    if ( is_numeric( $string ) )
+      return intval( $string );
     $ts = strtotime( $string );
     if ( $ts === FALSE )
       throw new Exception("Failed to convert string '$string' into a timestamp.");

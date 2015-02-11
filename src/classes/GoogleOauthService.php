@@ -54,7 +54,7 @@ class GoogleOauthService extends GoogleOauth {
       'grant_type' => self::GRANT_TYPE,
       'assertion' => $jwt,
     );
-    $auth = Http::curl(GoogleOauth::TOKEN_URL, $params, true);
+    $auth = Http::curl(GoogleOauth::TOKEN_URL, $params, 'POST');
     return json_decode($auth, $this->assoc);
   }
   /**
