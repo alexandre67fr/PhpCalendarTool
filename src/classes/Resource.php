@@ -130,8 +130,12 @@ abstract class Resource
     foreach ( $properties as $key )
       $options[$key] = $this->data[ $key ];
     $request = $this->request( $options, $type );
-    $this->get();
-    //print_r( $request );
+    $this->set( $request );
+  }
+
+  public function delete()
+  {
+    $request = $this->request( array(), 'DELETE' );
   }
 
   /**

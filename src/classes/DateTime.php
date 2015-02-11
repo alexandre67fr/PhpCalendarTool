@@ -15,6 +15,7 @@ abstract class DateTime
    */
   public static function timestamp( $string )
   {
+    date_default_timezone_set('Europe/Paris');
     if ( ! $string )
       return NULL;
     if ( is_numeric( $string ) )

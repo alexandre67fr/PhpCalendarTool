@@ -21,7 +21,17 @@ class Calendar extends Resource
   public function events( $filter = array() )
   {
     $list = new EventList( $this );
-    return $list->getList( $filter );
+    $events = $list->getList( $filter );
+    foreach ($events as &$event)
+      $event->calendar = $this;
+    return $events;
+  }
+
+  public function deleteAllEvents()
+  {
+    $events = $this->events();
+    foreach ( $events as $event )
+      $event->delete();
   }
 
   /**

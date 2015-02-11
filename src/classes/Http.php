@@ -21,10 +21,10 @@ class Http {
   public static function curl($url, $params=array(), $type='GET') {
     if (empty($url)) return false;
 
-    $post = ( $type != 'GET' ); 
+    $post = ! in_array( $type, array('GET', 'DELETE') ); 
     $token = false;
 
-    //print_r($params);
+    //print_r($params); print_r($type);
 
     foreach ( $params as $key => $value )
       if ( $value === NULL )
@@ -32,7 +32,7 @@ class Http {
 
     if (!$post && !empty($params)) 
       $url = $url . "?" . http_build_query($params);
-    elseif ( $params['access_token'] )
+    elseif ( isset( $params['access_token'] ) )
     {
       $token = $params['access_token'];
       $url = $url . "?" . http_build_query(array( 'access_token' => $token ));
@@ -65,8 +65,8 @@ class Http {
     $data = preg_replace('/^{/', '{"http_code":'.$http_code.',', $data);
     curl_close($curl);
 
-    if ( $http_code != 200 )
-      throw new Exception("HTTP response code is $http_code for request to URL $url. The returned data is $data");
+    if ( ! in_array( $http_code, array(200, 204) ) )
+      throw new Exception("HTTP response code is $http_code for $type request to URL $url. The returned data is $data \n Paraleters were: ".print_r($params, true));
 
     return $data;
   }

@@ -12,9 +12,6 @@ abstract class Token
    * Get access token.
    * If it does not exist, or if it is not found, then re-create it.
    *
-   * TODO: refresh token
-   * TODO: check old token validity
-   *
    * @return string Token
    */
   public static function get()

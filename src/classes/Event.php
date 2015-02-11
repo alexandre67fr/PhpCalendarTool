@@ -58,6 +58,7 @@ class Event extends Resource
         {
           $formatted = DateTime::date3339( $ts );
           $this->data[$key]->dateTime = $formatted;
+          unset( $this->data[$key]->date );
         }
       }
       return;
@@ -71,6 +72,37 @@ class Event extends Resource
     if ( ! $this->id )
       return $url;
     return $url . "/" . $this->id;
+  }
+
+  public function save()
+  {
+    // Set start and end time if they were not set
+    // They are required by Google API
+    if ( ! isset( $this->data[ 'start' ] ) )
+      $this->data[ 'start' ] = new \stdClass();
+
+    if (
+      ! isset( $this->data['start']->date )
+      and
+      ! isset( $this->data['start']->dateTime )
+    )
+      $this->data['start']->date = date('Y-m-d');
+
+    if ( ! isset( $this->data['end'] ) or ( $this->start > $this->end ) )
+    {
+      $this->data['end'] = clone $this->data['start'];
+      if ( $this->data['end']->date )
+        $this->data['end']->date = date('Y-m-d', strtotime( $this->data['start']->date ) + 24 * 60 * 60 + 1);
+    }
+
+    if (
+      ! isset( $this->data['end']->date )
+      and
+      ! isset( $this->data['end']->dateTime )
+    )
+      $this->data['end'] = clone $this->data['start'];
+
+    return parent::save();
   }
 
   public static function find( $id, $calendar=NULL )

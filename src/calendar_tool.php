@@ -60,7 +60,7 @@ $key_file_location =  __DIR__ . '/../keys/certificate.p12';
  * @global $throw_exceptions
  */
 global $throw_exceptions;
-$throw_exceptions = TRUE;
+$throw_exceptions = FALSE;
 
 /**
  * Autoload classes
@@ -76,7 +76,7 @@ function phpcalendar_autoloader($class)
   $class = str_replace('PHPCalendar\\', '', $class);
 
   $file = __DIR__ . '/classes/' . $class . '.php';
-  include $file;
+  @include $file;
 }
 spl_autoload_register('phpcalendar_autoloader');
 
@@ -196,7 +196,22 @@ function GetEventList($start_datetime=NULL, $end_datetime=NULL, $calendars=NULL)
           unset( $events[ $key ] );
     }
     
-    return array_values( $events );
+    $events = array_values( $events );
+
+    // Convert Event objects into array
+    $events_array = array();
+    foreach ($events as $event)
+      $events_array[] = array(
+        "Calendar"         => $event->calendar->id,
+        "CalendarEventID"  => $event->id,
+        "Heading"          => $event->summary,
+        "Location"         => $event->location,
+        "Description"      => $event->description,
+        "StartDatetime"    => date("Y-m-d H:i:s", $event->start),
+        "EndDatetime"      => date("Y-m-d H:i:s", $event->end),
+      );
+  
+    return $events_array;
 
   }
   catch (Exception $e)
@@ -312,8 +327,11 @@ function CreateCalendarEvent(
     $event->summary = $heading;
     $event->location = $location;
     $event->description = $description;
-    $event->start = ( $start_datetime ? $start_datetime : date('Y-m-d') );
-    $event->end   = ( $end_datetime   ? $end_datetime   : $event->start );
+    if ( $start_datetime )
+      $event->start = $start_datetime;
+    var_dump($end_datetime);
+    if ( $end_datetime )
+      $event->end = $end_datetime;
 
     $event->save();
 
