@@ -123,6 +123,36 @@ spl_autoload_register('phpcalendar_autoloader');
  * $events = GetEventList(NULL, NULL, $first_calendar->id); // this is the same
  * </code>
  *
+ * Example of what is returned:
+ *
+ * <code>
+ *  Array
+    (
+        [0] => Array
+            (
+                [Calendar] => ilrvagn6kkgugheatauheptqts@group.calendar.google.com
+                [CalendarEventID] => ajo7984bbeqpgarv8fnpk00vuc
+                [Heading] => Full-day event
+                [Location] => 
+                [Description] => 
+                [StartDatetime] => 2015-02-11 00:00:00
+                [EndDatetime] => 2015-02-12 00:00:00
+            )
+
+        [1] => Array
+            (
+                [Calendar] => ilrvagn6kkgugheatauheptqts@group.calendar.google.com
+                [CalendarEventID] => mi9huneutoq944olc0899qd2ng
+                [Heading] => From 11 to 12 event
+                [Location] => 
+                [Description] => 
+                [StartDatetime] => 2015-02-11 11:00:00
+                [EndDatetime] => 2015-02-11 12:00:00
+            )
+
+    )
+ * </code>
+ *
  * @uses PHPCalendar\Event
  * @uses PHPCalendar\Calendar
  * @link https://developers.google.com/google-apps/calendar/v3/reference/events/list
@@ -154,8 +184,10 @@ function GetEventList($start_datetime=NULL, $end_datetime=NULL, $calendars=NULL)
     // Start and End date for Google are exclusive
     // So we need to correct them
     // @link https://developers.google.com/google-apps/calendar/v3/reference/events/list#timeMax
-    $start_datetime -= 1;
-    $end_datetime += 1;
+    if ( $start_datetime )
+      $start_datetime -= 1;
+    if ( $end_datetime )
+      $end_datetime += 1;
 
     if ( ! $calendars )
       $calendars = PHPCalendar\Calendar::all();
@@ -180,8 +212,8 @@ function GetEventList($start_datetime=NULL, $end_datetime=NULL, $calendars=NULL)
       $fetched_events = $calendar->events(array(
         // Since we have only timestamps, we need to format them
         // @link https://developers.google.com/google-apps/calendar/concepts#timed_events
-        'timeMin' => PHPCalendar\DateTime::date3339( $start_datetime ),
-        'timeMax' => PHPCalendar\DateTime::date3339( $end_datetime ),
+        'timeMin' => ($start_datetime ? PHPCalendar\DateTime::date3339( $start_datetime ) : NULL),
+        'timeMax' => ($end_datetime ? PHPCalendar\DateTime::date3339( $end_datetime ) : NULL),
       ));
       $events = array_merge( $events, $fetched_events );
 
@@ -231,6 +263,8 @@ function GetEventList($start_datetime=NULL, $end_datetime=NULL, $calendars=NULL)
  * Updates a calendar event.
  *
  * If some arguments are supplied as NULL, than the corresponding property will not be changed.
+ *
+ * Examples: the same as {@link CreateCalendarEvent()}, but with $event parameter.
  *
  * @uses PHPCalendar\Event
  * @uses PHPCalendar\Calendar
@@ -292,6 +326,15 @@ function SetCalendarEvent(
 
 /**
  * Creates a calendar event.
+ *
+ * Example:
+ *
+ * <code>
+ * // Create 'My Test Event' on February, 11th, 2015, from 11:00 to 12:00
+ * CreateCalendarEvent('alexandre67fr@gmail.com', 'My Test Event', NULL, NULL, '2015-02-11 11:00', '2015-02-11 12:00');
+ * // Create 'My Second Test Event' on February, 11th, 2015, for the whole day
+ * CreateCalendarEvent('alexandre67fr@gmail.com', 'My Second Test Event', NULL, NULL, '2015-02-11');
+ * </code>
  *
  * @uses PHPCalendar\Event
  * @uses PHPCalendar\Calendar

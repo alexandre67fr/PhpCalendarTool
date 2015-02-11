@@ -80,6 +80,61 @@ class CalendarTest extends PHPUnit_Framework_TestCase
   public function createGetEventsData()
   {
     return array(
+
+      array(
+        array(
+          array( NULL, NULL, NULL, '2015-02-11', NULL ), 
+        ),
+        NULL,
+        NULL,
+        1,
+      ),
+
+      array(
+        array(
+          array( NULL, NULL, NULL, '2015-02-11 10:00', NULL ), 
+        ),
+        NULL,
+        '2015-02-11 11:00',
+        1,
+      ),
+
+      array(
+        array(
+          array( NULL, NULL, NULL, '2015-02-11 10:00', NULL ), 
+        ),
+        NULL,
+        strtotime('2015-02-11 11:00'),
+        1,
+      ),
+
+      array(
+        array(
+          array( NULL, NULL, NULL, '2015-02-11 10:00', NULL ), 
+        ),
+        FALSE,
+        '2015-02-11 11:00',
+        1,
+      ),
+
+      array(
+        array(
+          array( NULL, NULL, NULL, '2015-02-11 10:00', NULL ), 
+        ),
+        '',
+        '2015-02-11 11:00',
+        1,
+      ),
+
+      array(
+        array(
+          array( NULL, NULL, NULL, '2015-02-11 10:00', NULL ), 
+        ),
+        0,
+        '2015-02-11 11:00',
+        1,
+      ),
+
       array(
         array(
           array( NULL, NULL, NULL, '2015-02-11', NULL ), 
@@ -87,7 +142,57 @@ class CalendarTest extends PHPUnit_Framework_TestCase
         '2015-02-10',
         '2015-02-12',
         1,
-      )
+      ),
+
+      array(
+        array(
+          array( NULL, NULL, NULL, '2015-02-11', NULL ), 
+        ),
+        '2015-02-09',
+        '2015-02-10',
+        0,
+      ),
+
+      array(
+        array(
+          array( NULL, NULL, NULL, '2015-02-11', NULL ), 
+          array( NULL, NULL, NULL, '2015-02-11 11:00', '2015-02-11 12:00' ), 
+        ),
+        '2015-02-11 10:00',
+        '2015-02-11 13:00',
+        1,
+      ),
+
+      array(
+        array(
+          array( NULL, NULL, NULL, '2015-02-11', NULL ), 
+          array( NULL, NULL, NULL, '2015-02-11 11:00', '2015-02-11 12:00' ), 
+        ),
+        '2015-02-11 0:00',
+        '2015-02-11 13:00',
+        2,
+      ),
+
+      array(
+        array(
+          array( NULL, NULL, NULL, '2015-02-11', NULL ), 
+          array( NULL, NULL, NULL, '2015-02-11 11:00', '2015-02-11 12:00' ), 
+        ),
+        '2015-02-11 0:00',
+        '2015-02-11 11:00',
+        2,
+      ),
+
+      array(
+        array(
+          array( NULL, NULL, NULL, '2015-02-11 10:00', '2015-02-11 10:30' ), 
+          array( NULL, NULL, NULL, '2015-02-11 10:40', '2015-02-11 12:00' ), 
+        ),
+        '2015-02-11 10:15',
+        '2015-02-11 10:45',
+        1,
+      ),
+
     );
   }
 
@@ -98,6 +203,8 @@ class CalendarTest extends PHPUnit_Framework_TestCase
   {
     $cal = self::getCalendar();
     $cal->deleteAllEvents();
+
+    sleep(1);
 
     foreach ($events as $event)
     {
