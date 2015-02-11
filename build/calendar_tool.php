@@ -126,31 +126,31 @@ spl_autoload_register('phpcalendar_autoloader');
  * Example of what is returned:
  *
  * <code>
- *  Array
-    (
-        [0] => Array
-            (
-                [Calendar] => ilrvagn6kkgugheatauheptqts@group.calendar.google.com
-                [CalendarEventID] => ajo7984bbeqpgarv8fnpk00vuc
-                [Heading] => Full-day event
-                [Location] => 
-                [Description] => 
-                [StartDatetime] => 2015-02-11 00:00:00
-                [EndDatetime] => 2015-02-12 00:00:00
-            )
-
-        [1] => Array
-            (
-                [Calendar] => ilrvagn6kkgugheatauheptqts@group.calendar.google.com
-                [CalendarEventID] => mi9huneutoq944olc0899qd2ng
-                [Heading] => From 11 to 12 event
-                [Location] => 
-                [Description] => 
-                [StartDatetime] => 2015-02-11 11:00:00
-                [EndDatetime] => 2015-02-11 12:00:00
-            )
-
-    )
+ *   Array
+ *   (
+ *       [0] => Array
+ *           (
+ *               [Calendar] => ilrvagn6kkgugheatauheptqts@group.calendar.google.com
+ *               [CalendarEventID] => ajo7984bbeqpgarv8fnpk00vuc
+ *               [Heading] => Full-day event
+ *               [Location] => 
+ *               [Description] => 
+ *               [StartDatetime] => 2015-02-11 00:00:00
+ *               [EndDatetime] => 2015-02-12 00:00:00
+ *           )
+ *
+ *       [1] => Array
+ *           (
+ *               [Calendar] => ilrvagn6kkgugheatauheptqts@group.calendar.google.com
+ *               [CalendarEventID] => mi9huneutoq944olc0899qd2ng
+ *               [Heading] => From 11 to 12 event
+ *               [Location] => 
+ *               [Description] => 
+ *               [StartDatetime] => 2015-02-11 11:00:00
+ *               [EndDatetime] => 2015-02-11 12:00:00
+ *           )
+ *
+ *   )
  * </code>
  *
  * @uses PHPCalendar\Event
