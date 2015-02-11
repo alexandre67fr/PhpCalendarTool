@@ -31,4 +31,4 @@ composer compile
 *Warning*: PHPUnit tests delete all events in the first found calendar. Please use only test accounts for PHPUnit.
 
 # Documentation
-Available in `doc` folder, or online: https://rawgit.com/alexandre67fr/PhpCalendarTool/master/docs/index.html
+Available in `doc` folder, or online: https://rawgit.com/alexandre67fr/PhpCalendarTool/master/docs/namespace-None.html
