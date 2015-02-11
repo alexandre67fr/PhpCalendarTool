@@ -64,7 +64,7 @@ $key_file_location =  __DIR__ . '/../keys/certificate.p12';
  * @global $throw_exceptions
  */
 global $throw_exceptions;
-$throw_exceptions = TRUE;
+$throw_exceptions = FALSE;
 
 /**
  * Autoload classes
@@ -80,7 +80,7 @@ function phpcalendar_autoloader($class)
   $class = str_replace('PHPCalendar\\', '', $class);
 
   $file = __DIR__ . '/classes/' . $class . '.php';
-  include $file;
+  @include $file;
 }
 spl_autoload_register('phpcalendar_autoloader');
 
@@ -200,7 +200,22 @@ function GetEventList($start_datetime=NULL, $end_datetime=NULL, $calendars=NULL)
           unset( $events[ $key ] );
     }
     
-    return array_values( $events );
+    $events = array_values( $events );
+
+    // Convert Event objects into array
+    $events_array = array();
+    foreach ($events as $event)
+      $events_array[] = array(
+        "Calendar"         => $event->calendar->id,
+        "CalendarEventID"  => $event->id,
+        "Heading"          => $event->summary,
+        "Location"         => $event->location,
+        "Description"      => $event->description,
+        "StartDatetime"    => date("Y-m-d H:i:s", $event->start),
+        "EndDatetime"      => date("Y-m-d H:i:s", $event->end),
+      );
+  
+    return $events_array;
 
   }
   catch (Exception $e)
@@ -316,8 +331,10 @@ function CreateCalendarEvent(
     $event->summary = $heading;
     $event->location = $location;
     $event->description = $description;
-    $event->start = ( $start_datetime ? $start_datetime : date('Y-m-d') );
-    $event->end   = ( $end_datetime   ? $end_datetime   : $event->start );
+    if ( $start_datetime )
+      $event->start = $start_datetime;
+    if ( $end_datetime )
+      $event->end = $end_datetime;
 
     $event->save();
 
@@ -361,7 +378,17 @@ class Calendar extends Resource
   public function events( $filter = array() )
   {
     $list = new EventList( $this );
-    return $list->getList( $filter );
+    $events = $list->getList( $filter );
+    foreach ($events as &$event)
+      $event->calendar = $this;
+    return $events;
+  }
+
+  public function deleteAllEvents()
+  {
+    $events = $this->events();
+    foreach ( $events as $event )
+      $event->delete();
   }
 
   /**
@@ -419,6 +446,7 @@ abstract class DateTime
    */
   public static function timestamp( $string )
   {
+    date_default_timezone_set('Europe/Paris');
     if ( ! $string )
       return NULL;
     if ( is_numeric( $string ) )
@@ -504,6 +532,8 @@ class Event extends Resource
       if ( !isset( $this->data[ $key ] ) )
         $this->data[ $key ] = new \stdClass();
 
+      $other_key = ( $key == 'start' ? 'end' : 'start' );
+
       $ts = DateTime::timestamp( $value );
       if ( $ts )
       {
@@ -512,11 +542,24 @@ class Event extends Resource
           $value = date('Y-m-d', $ts);
           $this->data[$key]->date = $value;
           unset( $this->data[$key]->dateTime );
+          // We cannot submit "date" and "dateTime" at the same time
+          if ( isset( $this->data[$other_key]->dateTime ) )
+          {
+            $this->data[$other_key]->date = date('Y-m-d', DateTime::timestamp( $this->data[$other_key]->dateTime ));
+            unset( $this->data[$other_key]->dateTime );
+          }
         }
         else
         {
           $formatted = DateTime::date3339( $ts );
           $this->data[$key]->dateTime = $formatted;
+          unset( $this->data[$key]->date );
+          // We cannot submit "date" and "dateTime" at the same time
+          if ( isset( $this->data[$other_key]->date ) )
+          {
+            $this->data[$other_key]->dateTime = DateTime::date3339( DateTime::timestamp( $this->data[$other_key]->date ));
+            unset( $this->data[$other_key]->date );
+          }
         }
       }
       return;
@@ -530,6 +573,40 @@ class Event extends Resource
     if ( ! $this->id )
       return $url;
     return $url . "/" . $this->id;
+  }
+
+  public function save()
+  {
+    // Set start and end time if they were not set
+    // They are required by Google API
+    
+    //print_r($this->data);
+
+    if ( ! isset( $this->data[ 'start' ] ) )
+      $this->data[ 'start' ] = new \stdClass();
+
+    if (
+      ! isset( $this->data['start']->date )
+      and
+      ! isset( $this->data['start']->dateTime )
+    )
+      $this->data['start']->date = date('Y-m-d');
+
+    if ( ! isset( $this->data['end'] ) or ( $this->start > $this->end ) )
+    {
+      $this->data['end'] = clone $this->data['start'];
+      if ( isset( $this->data['end']->date ) )
+        $this->data['end']->date = date('Y-m-d', strtotime( $this->data['start']->date ) + 24 * 60 * 60 + 1);
+    }
+
+    if (
+      ! isset( $this->data['end']->date )
+      and
+      ! isset( $this->data['end']->dateTime )
+    )
+      $this->data['end'] = clone $this->data['start'];
+
+    return parent::save();
   }
 
   public static function find( $id, $calendar=NULL )
@@ -755,10 +832,10 @@ class Http {
   public static function curl($url, $params=array(), $type='GET') {
     if (empty($url)) return false;
 
-    $post = ( $type != 'GET' ); 
+    $post = ! in_array( $type, array('GET', 'DELETE') ); 
     $token = false;
 
-    //print_r($params);
+    //print_r($params); print_r($type);
 
     foreach ( $params as $key => $value )
       if ( $value === NULL )
@@ -766,7 +843,7 @@ class Http {
 
     if (!$post && !empty($params)) 
       $url = $url . "?" . http_build_query($params);
-    elseif ( $params['access_token'] )
+    elseif ( isset( $params['access_token'] ) )
     {
       $token = $params['access_token'];
       $url = $url . "?" . http_build_query(array( 'access_token' => $token ));
@@ -799,8 +876,8 @@ class Http {
     $data = preg_replace('/^{/', '{"http_code":'.$http_code.',', $data);
     curl_close($curl);
 
-    if ( $http_code != 200 )
-      throw new Exception("HTTP response code is $http_code for request to URL $url. The returned data is $data");
+    if ( ! in_array( $http_code, array(200, 204) ) )
+      throw new Exception("HTTP response code is $http_code for $type request to URL $url. The returned data is $data \n Paraleters were: ".print_r($params, true));
 
     return $data;
   }
@@ -988,8 +1065,12 @@ abstract class Resource
     foreach ( $properties as $key )
       $options[$key] = $this->data[ $key ];
     $request = $this->request( $options, $type );
-    $this->get();
-    //print_r( $request );
+    $this->set( $request );
+  }
+
+  public function delete()
+  {
+    $request = $this->request( array(), 'DELETE' );
   }
 
   /**
@@ -1104,9 +1185,6 @@ abstract class Token
   /**
    * Get access token.
    * If it does not exist, or if it is not found, then re-create it.
-   *
-   * TODO: refresh token
-   * TODO: check old token validity
    *
    * @return string Token
    */

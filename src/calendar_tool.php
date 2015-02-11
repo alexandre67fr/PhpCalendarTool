@@ -329,7 +329,6 @@ function CreateCalendarEvent(
     $event->description = $description;
     if ( $start_datetime )
       $event->start = $start_datetime;
-    var_dump($end_datetime);
     if ( $end_datetime )
       $event->end = $end_datetime;
 

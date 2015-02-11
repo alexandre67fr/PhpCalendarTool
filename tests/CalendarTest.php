@@ -83,7 +83,6 @@ class CalendarTest extends PHPUnit_Framework_TestCase
       array(
         array(
           array( NULL, NULL, NULL, '2015-02-11', NULL ), 
-          array( '1', '2', '3', '2015-02-11', '4' ), 
         ),
         '2015-02-10',
         '2015-02-12',

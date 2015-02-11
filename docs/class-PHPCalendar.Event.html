@@ -134,7 +134,7 @@
 				<code><a href="function-SetCalendarEvent.html">SetCalendarEvent()</a></code><br>
 				<b>Extends:</b>
 				Resource<br>
-			<b>Located at</b> <a href="source-class-PHPCalendar.Event.html#5-84" title="Go to source code">classes/Event.php</a>
+			<b>Located at</b> <a href="source-class-PHPCalendar.Event.html#492-619" title="Go to source code">calendar_tool.php</a>
 		<br>
 	</div>
 
@@ -154,7 +154,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-PHPCalendar.Event.html#24-28" title="Go to source code">__construct</a>( <span>string|integer <var>$id</var> = <span class="php-keyword1">NULL</span></span>, <span> <var>$calendar</var> = <span class="php-keyword1">NULL</span> </span> )</code>
+		<code><a href="source-class-PHPCalendar.Event.html#511-515" title="Go to source code">__construct</a>( <span>string|integer <var>$id</var> = <span class="php-keyword1">NULL</span></span>, <span> <var>$calendar</var> = <span class="php-keyword1">NULL</span> </span> )</code>
 
 		<div class="description short">
 			<p>Creates a new resource.
@@ -195,7 +195,7 @@ If ID is set, then also fetches data from Google.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___get">#</a>
-		<code><a href="source-class-PHPCalendar.Event.html#30-39" title="Go to source code">__get</a>( <span> <var>$key</var></span> )</code>
+		<code><a href="source-class-PHPCalendar.Event.html#517-526" title="Go to source code">__get</a>( <span> <var>$key</var></span> )</code>
 
 		<div class="description short">
 			
@@ -227,7 +227,7 @@ If ID is set, then also fetches data from Google.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___set">#</a>
-		<code><a href="source-class-PHPCalendar.Event.html#41-66" title="Go to source code">__set</a>( <span> <var>$key</var></span>, <span> <var>$value</var></span> )</code>
+		<code><a href="source-class-PHPCalendar.Event.html#528-567" title="Go to source code">__set</a>( <span> <var>$key</var></span>, <span> <var>$value</var></span> )</code>
 
 		<div class="description short">
 			
@@ -259,7 +259,7 @@ If ID is set, then also fetches data from Google.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_endpoint">#</a>
-		<code><a href="source-class-PHPCalendar.Event.html#68-74" title="Go to source code">endpoint</a>( )</code>
+		<code><a href="source-class-PHPCalendar.Event.html#569-575" title="Go to source code">endpoint</a>( )</code>
 
 		<div class="description short">
 			<p>Endpoint to get the list</p>
@@ -283,6 +283,38 @@ If ID is set, then also fetches data from Google.</p>
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="save" id="_save">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_save">#</a>
+		<code><a href="source-class-PHPCalendar.Event.html#577-609" title="Go to source code">save</a>( )</code>
+
+		<div class="description short">
+			<p>Save data</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Save data</p>
+
+
+
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-PHPCalendar.Resource.html#_save">PHPCalendar\Resource::save()</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="find" id="_find">
 
 		<td class="attributes"><code>
@@ -295,7 +327,7 @@ If ID is set, then also fetches data from Google.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_find">#</a>
-		<code><a href="source-class-PHPCalendar.Event.html#76-82" title="Go to source code">find</a>( <span>integer <var>$id</var></span>, <span> <var>$calendar</var> = <span class="php-keyword1">NULL</span> </span> )</code>
+		<code><a href="source-class-PHPCalendar.Event.html#611-617" title="Go to source code">find</a>( <span>integer <var>$id</var></span>, <span> <var>$calendar</var> = <span class="php-keyword1">NULL</span> </span> )</code>
 
 		<div class="description short">
 			<p>Convert $id to Resource object
@@ -335,8 +367,8 @@ If $id parameter is already a resource, then just return it.</p>
 	<tr>
 		<td><code>
 			<a href="class-PHPCalendar.Resource.html#_all">all()</a>, 
+			<a href="class-PHPCalendar.Resource.html#_delete">delete()</a>, 
 			<a href="class-PHPCalendar.Resource.html#_get">get()</a>, 
-			<a href="class-PHPCalendar.Resource.html#_save">save()</a>, 
 			<a href="class-PHPCalendar.Resource.html#_set">set()</a>
 		</code></td>
 	</tr>
@@ -361,7 +393,7 @@ If $id parameter is already a resource, then just return it.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-PHPCalendar.Event.html#12-17" title="Go to source code"><var>$calendar</var></a>
+				<a href="source-class-PHPCalendar.Event.html#499-504" title="Go to source code"><var>$calendar</var></a>
 
 			<div class="description short">
 				<p>Calendar that this event belong to</p>
@@ -391,7 +423,7 @@ If $id parameter is already a resource, then just return it.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-PHPCalendar.Event.html#19-22" title="Go to source code"><var>$required_parameters</var></a>
+				<a href="source-class-PHPCalendar.Event.html#506-509" title="Go to source code"><var>$required_parameters</var></a>
 
 			<div class="description short">
 				<p>Required parmeters that need to be submitted upon update request</p>

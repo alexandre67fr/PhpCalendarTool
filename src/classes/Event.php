@@ -45,6 +45,8 @@ class Event extends Resource
       if ( !isset( $this->data[ $key ] ) )
         $this->data[ $key ] = new \stdClass();
 
+      $other_key = ( $key == 'start' ? 'end' : 'start' );
+
       $ts = DateTime::timestamp( $value );
       if ( $ts )
       {
@@ -53,12 +55,24 @@ class Event extends Resource
           $value = date('Y-m-d', $ts);
           $this->data[$key]->date = $value;
           unset( $this->data[$key]->dateTime );
+          // We cannot submit "date" and "dateTime" at the same time
+          if ( isset( $this->data[$other_key]->dateTime ) )
+          {
+            $this->data[$other_key]->date = date('Y-m-d', DateTime::timestamp( $this->data[$other_key]->dateTime ));
+            unset( $this->data[$other_key]->dateTime );
+          }
         }
         else
         {
           $formatted = DateTime::date3339( $ts );
           $this->data[$key]->dateTime = $formatted;
           unset( $this->data[$key]->date );
+          // We cannot submit "date" and "dateTime" at the same time
+          if ( isset( $this->data[$other_key]->date ) )
+          {
+            $this->data[$other_key]->dateTime = DateTime::date3339( DateTime::timestamp( $this->data[$other_key]->date ));
+            unset( $this->data[$other_key]->date );
+          }
         }
       }
       return;
@@ -78,6 +92,9 @@ class Event extends Resource
   {
     // Set start and end time if they were not set
     // They are required by Google API
+    
+    //print_r($this->data);
+
     if ( ! isset( $this->data[ 'start' ] ) )
       $this->data[ 'start' ] = new \stdClass();
 
@@ -91,7 +108,7 @@ class Event extends Resource
     if ( ! isset( $this->data['end'] ) or ( $this->start > $this->end ) )
     {
       $this->data['end'] = clone $this->data['start'];
-      if ( $this->data['end']->date )
+      if ( isset( $this->data['end']->date ) )
         $this->data['end']->date = date('Y-m-d', strtotime( $this->data['start']->date ) + 24 * 60 * 60 + 1);
     }
 
